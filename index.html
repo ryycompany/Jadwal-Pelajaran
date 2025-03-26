@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Schedule + Apk Menu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-calendar-alt"></i> JADWAL PELAJARAN</h1>
+    </header>
+
+    <main>
+        <!-- Container Today Schedule -->
+        <div class="container" id="todaySchedule">
+            <h2><i class="fas fa-calendar-day"></i> Jadwal Hari Ini</h2>
+            <div class="date" id="currentDate"></div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Mata Pelajaran</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todayScheduleTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Container Tomorrow Schedule -->
+        <div class="container" id="tomorrowSchedule">
+            <h2><i class="fas fa-calendar-week"></i> Jadwal Besok</h2>
+            <div class="date" id="tomorrowDate"></div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Mata Pelajaran</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tomorrowScheduleTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Container Full Schedule -->
+        <div class="container" id="fullSchedule">
+            <h2><i class="fas fa-calendar-alt"></i> Jadwal Lengkap</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hari</th>
+                            <th>Pelajaran ke 1</th>
+                            <th>Pelajaran ke 2</th>
+                            <th>Pelajaran ke 3</th>
+                            <th>Pelajaran ke 4</th>
+                            <th>Pelajaran ke 5</th>
+                            <th>Pelajaran ke 6</th>
+                            <th>Pelajaran ke 7</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fullScheduleTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Container Preparation -->
+        <div class="container active" id="preparationContainer">
+            <h2><i class="fas fa-book"></i> Persiapan Besok</h2>
+            <div class="date" id="preparationDate"></div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Buku yang Dibutuhkan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="preparationTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Container Prayer Times -->
+        <div class="container" id="prayerTimesContainer">
+            <h2><i class="fas fa-pray"></i> Jadwal Sholat</h2>
+            <div class="date" id="prayerDate"></div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Waktu Sholat</th>
+                            <th>Jam</th>
+                            <th>Countdown</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prayerTimesTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Container PR Management -->
+        <div class="container" id="prContainer">
+            <h2><i class="fas fa-tasks"></i> Manajemen PR</h2>
+            <div class="pr-form">
+                <h3><i class="fas fa-plus-circle"></i> Tambah PR Baru</h3>
+                <div class="form-group">
+                    <label for="prSubject">Mata Pelajaran:</label>
+                    <select id="prSubject">
+                        <option value="PAI">PAI</option>
+                        <option value="IPAS">IPAS</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="OR">OR</option>
+                        <option value="SBY">SBY</option>
+                        <option value="Bahasa Sunda">Bahasa Sunda</option>
+                        <option value="Informatika">Informatika</option>
+                        <option value="PPKN">PPKN</option>
+                        <option value="Sejarah">Sejarah</option>
+                        <option value="Coding XI">Coding XI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prDeadline">Deadline:</label>
+                    <input type="date" id="prDeadline">
+                </div>
+                <div class="form-group">
+                    <label for="prDescription">Deskripsi:</label>
+                    <textarea id="prDescription" placeholder="Masukkan deskripsi PR..."></textarea>
+                </div>
+                <button id="addPRBtn"><i class="fas fa-plus"></i> Tambah PR</button>
+            </div>
+            <div class="pr-list">
+                <h3><i class="fas fa-list"></i> Daftar PR</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th>Deadline</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container Calculator -->
+        <div class="container" id="calculatorContainer">
+            <h2><i class="fas fa-calculator"></i> Kalkulator Ilmiah</h2>
+            <div class="calculator">
+                <div class="calculator-display">
+                    <input type="text" id="calculatorInput" readonly>
+                </div>
+                <div class="calculator-buttons">
+                    <button data-value="C">AC</button>
+                    <button data-value="7">7</button>
+                    <button data-value="8">8</button>
+                    <button data-value="9">9</button>
+                    <button data-value="/">/</button>
+                    <button data-value="4">4</button>
+                    <button data-value="5">5</button>
+                    <button data-value="6">6</button>
+                    <button data-value="*">×</button>
+                    <button data-value="1">1</button>
+                    <button data-value="2">2</button>
+                    <button data-value="3">3</button>
+                    <button data-value="-">-</button>
+                    <button data-value="0">0</button>
+                    <button data-value=".">.</button>
+                    <button data-value="+">+</button>
+                    <button id="equalsBtn" class="equals-btn">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container Settings -->
+        <div class="container" id="settingsContainer">
+            <h2><i class="fas fa-paint-brush"></i> Pengaturan Tampilan</h2>
+            
+            <div class="settings-grid">
+                <!-- Theme Color -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-palette"></i> Warna Tema</h3>
+                    <div class="color-picker">
+                        <div class="color-option selected" data-color="#223CE7" style="background-color: #223CE7;"></div>
+                        <div class="color-option" data-color="#2ecc71" style="background-color: #2ecc71;"></div>
+                        <div class="color-option" data-color="#9b59b6" style="background-color: #9b59b6;"></div>
+                        <div class="color-option" data-color="#e74c3c" style="background-color: #e74c3c;"></div>
+                        <div class="color-option" data-color="#3498db" style="background-color: #3498db;"></div>
+                        <div class="color-option" data-color="#f39c12" style="background-color: #f39c12;"></div>
+                    </div>
+                </div>
+
+                <!-- Table Style -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-table"></i> Gaya Tabel</h3>
+                    <div class="setting-item">
+                        <label for="tableHeaderColor">Warna Header:</label>
+                        <input type="color" id="tableHeaderColor" value="#223CE7">
+                    </div>
+                    <div class="setting-item">
+                        <label for="tableRowColor">Warna Baris:</label>
+                        <input type="color" id="tableRowColor" value="#f9f9f9">
+                    </div>
+                    <div class="setting-item">
+                        <label for="tableBorderColor">Warna Border:</label>
+                        <input type="color" id="tableBorderColor" value="#dddddd">
+                    </div>
+                </div>
+
+                <!-- Language -->
+                <div class="settings-card">
+                    <h3><i class="fas fa-language"></i> Bahasa</h3>
+                    <div class="language-options">
+                        <div class="language-option selected" data-lang="id">
+                            <img src="https://flagcdn.com/w20/id.png" alt="Indonesia">
+                            <span>Indonesia</span>
+                        </div>
+                        <div class="language-option" data-lang="en">
+                            <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                            <span>English</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-card danger-zone">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Zona Reset</h3>
+                    <button id="resetTableStyle" class="danger-btn">
+                        <i class="fas fa-table"></i> Reset Gaya Tabel
+                    </button>
+                    <button id="resetAllSettings" class="danger-btn">
+                        <i class="fas fa-bomb"></i> Reset Semua Pengaturan
+                    </button>
+                </div>
+            </div>
+                              <div class="setting-item">
+                  <span class="setting-label">Dark Mode</span>
+                  <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+            <div class="settings-actions">
+                <button id="saveSettingsBtn" class="save-btn">
+                    <i class="fas fa-save"></i> Simpan Pengaturan
+                </button>
+                <button id="applySettingsBtn" class="apply-btn">
+                    <i class="fas fa-check"></i> Terapkan Sekarang
+                </button>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <div class="footer-nav-container">
+            <div class="footer-nav">
+                <button data-target="todaySchedule"><i class="fas fa-calendar-day"></i><span>Hari Ini</span></button>
+                <button data-target="tomorrowSchedule"><i class="fas fa-calendar-week"></i><span>Besok</span></button>
+                <button data-target="fullSchedule"><i class="fas fa-calendar-alt"></i><span>Lengkap</span></button>
+                <button data-target="preparationContainer" class="active"><i class="fas fa-book"></i><span>Persiapan</span></button>
+                <button data-target="prayerTimesContainer"><i class="fas fa-pray"></i><span>Sholat</span></button>
+                <button data-target="prContainer"><i class="fas fa-tasks"></i><span>PR</span></button>
+                <button data-target="calculatorContainer"><i class="fas fa-calculator"></i><span>Kalkulator</span></button>
+                <button data-target="settingsContainer"><i class="fas fa-cog"></i><span>Pengaturan</span></button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="jadwal-sholat.txt" id="prayerTimesData" type="text/plain"></script>
+    <script src="script.js"></script>
+</body>
+</html>
