@@ -3,38 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Student Smart Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #4361ee;
             --secondary-color: #3f37c9;
             --accent-color: #4895ef;
-            --text-color: #333;
-            --text-light: #777;
-            --bg-color: #f9f9f9;
-            --card-bg: #fff;
-            --footer-bg: #2b2d42;
-            --footer-text: #edf2f4;
-            --border-radius: 12px;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-            --success-color: #4cc9f0;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
             --warning-color: #f8961e;
             --danger-color: #ef476f;
-            
+            --success-color: #4cc9f0;
+            --border-radius: 12px;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
             --primary-color: #4cc9f0;
-            --secondary-color: #4895ef;
-            --accent-color: #4361ee;
             --text-color: #edf2f4;
             --text-light: #adb5bd;
             --bg-color: #121212;
             --card-bg: #1e1e1e;
-            --footer-bg: #2b2d42;
-            --footer-text: #edf2f4;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
@@ -42,7 +36,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -54,12 +48,11 @@
             transition: var(--transition);
         }
 
+        /* HEADER STYLE */
         header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 0 1.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+            padding: 0 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -68,57 +61,67 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        [data-theme="dark"] header {
-            background-color: rgba(30, 30, 30, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .header-content {
-            flex: 1;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.2rem;
-            color: var(--primary-color);
+        .header-title h1 {
+            font-size: 1.4rem;
             font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
         }
 
-        header p {
-            margin: 0.2rem 0;
-            font-size: 0.9rem;
-            color: var(--text-color);
+        .header-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
         }
 
-        #current-time {
+        .header-time #real-clock {
             font-size: 1.1rem;
             font-weight: bold;
             color: var(--primary-color);
-            letter-spacing: 1px;
+        }
+
+        #current-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .menu-toggle {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-color);
             cursor: pointer;
             transition: var(--transition);
             padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
-            order: 1; /* Pindahkan ke kanan */
+            justify-content: center;
         }
 
         .menu-toggle:hover {
+            background-color: rgba(67, 97, 238, 0.1);
             color: var(--primary-color);
         }
 
-        /* Sidebar Styles */
+        /* SIDEBAR STYLE */
         .sidebar {
             position: fixed;
             top: 0;
@@ -126,9 +129,9 @@
             width: 280px;
             height: 100%;
             background-color: var(--card-bg);
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
-            z-index: 1000;
+            z-index: 1001;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -139,7 +142,7 @@
         }
 
         .sidebar-header {
-            padding: 1rem 1.5rem;
+            padding: 1.5rem;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
@@ -153,24 +156,15 @@
             margin: 0;
         }
 
-        .close-sidebar {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-        }
-
         .sidebar-menu {
             padding: 1rem 0;
             flex: 1;
-            overflow-y: auto;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 0.8rem 1.5rem;
+            padding: 0.9rem 1.5rem;
             color: var(--text-color);
             text-decoration: none;
             transition: var(--transition);
@@ -178,11 +172,10 @@
 
         .menu-item:hover {
             background-color: rgba(67, 97, 238, 0.1);
-            color: var(--primary-color);
         }
 
         .menu-item i {
-            margin-right: 0.8rem;
+            margin-right: 1rem;
             font-size: 1.1rem;
             width: 20px;
             text-align: center;
@@ -191,7 +184,7 @@
         .menu-item.active {
             background-color: rgba(67, 97, 238, 0.1);
             color: var(--primary-color);
-            border-left: 4px solid var(--primary-color);
+            border-left: 3px solid var(--primary-color);
         }
 
         .overlay {
@@ -201,7 +194,7 @@
             right: 0;
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
@@ -212,11 +205,12 @@
             visibility: visible;
         }
 
+        /* MAIN CONTENT */
         main {
             flex: 1;
-            padding: 1.5rem;
+            padding: 2rem;
             max-width: 1200px;
-            margin: 5rem auto 1rem;
+            margin: 5rem auto 2rem;
             width: 100%;
         }
 
@@ -227,25 +221,179 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             transition: var(--transition);
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .card h2 {
             font-size: 1.4rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--primary-color);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
+        }
+
+        /* COUNTDOWN TIMER STYLE (for cards in main content) */
+        .countdown-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .countdown-item {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+
+        .countdown-item.break::before {
+            background-color: var(--warning-color);
+        }
+
+        .countdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-title {
+            font-size: 1.1rem;
             font-weight: 500;
         }
 
-        /* Calendar Styles */
+        .countdown-time {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .countdown-item.break .countdown-time {
+            color: var(--warning-color);
+        }
+
+        .countdown-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .countdown-item.break .progress {
+            background-color: var(--warning-color);
+        }
+
+        /* SCHEDULE STYLES */
+        .schedule-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .schedule-day {
+            margin-bottom: 1rem;
+        }
+
+        .schedule-day h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .schedule-day h3 i {
+            margin-right: 0.5rem;
+        }
+
+        .schedule-item {
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .schedule-item:hover {
+            transform: translateX(5px);
+        }
+
+        .schedule-item .subject {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .schedule-item .details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .schedule-item .time {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .current-day {
+            color: var(--primary-color) !important;
+            font-weight: bold;
+        }
+
+        .current-subject {
+            border-left-color: var(--accent-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .next-subject {
+            border-left-color: var(--secondary-color);
+        }
+
+        .break-item {
+            border-left-color: var(--warning-color);
+            background-color: rgba(248, 150, 30, 0.1);
+        }
+
+        /* CALENDAR STYLES */
         .calendar-container {
             display: flex;
             flex-direction: column;
@@ -395,606 +543,7 @@
             color: var(--text-light);
         }
 
-        /* Countdown Styles */
-        .countdown-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .countdown-box {
-            flex: 1;
-            min-width: 150px;
-            background-color: var(--card-bg);
-            padding: 1.5rem 1rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            text-align: center;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary-color);
-        }
-
-        .countdown-box:hover {
-            transform: scale(1.02);
-        }
-
-        .countdown-box h3 {
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .countdown-box .time {
-            font-size: 1.8rem;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-        }
-
-        .countdown-box .info {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        /* Schedule Styles */
-        .schedule-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .schedule-day {
-            margin-bottom: 1.5rem;
-        }
-
-        .schedule-day h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: var(--text-color);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .schedule-day h3 i {
-            margin-right: 0.5rem;
-        }
-
-        .schedule-item {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            margin-bottom: 0.8rem;
-            border-left: 4px solid var(--primary-color);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .schedule-item:hover {
-            transform: translateX(5px);
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .schedule-item .subject {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-color);
-        }
-
-        .schedule-item .details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .schedule-item .time {
-            background-color: rgba(0, 0, 0, 0.05);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .current-day {
-            color: var(--primary-color) !important;
-            font-weight: bold;
-        }
-
-        .current-subject {
-            border-left-color: var(--accent-color);
-            background-color: rgba(67, 97, 238, 0.1);
-        }
-
-        .next-subject {
-            border-left-color: var(--secondary-color);
-        }
-
-        .break-item {
-            border-left-color: var(--warning-color);
-            background-color: rgba(248, 150, 30, 0.1);
-        }
-
-        /* AI Assistant Styles */
-        .ai-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            gap: 1rem;
-        }
-
-        .chat-messages {
-            flex: 1;
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            overflow-y: auto;
-            min-height: 300px;
-            max-height: 300px;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .message {
-            margin-bottom: 0;
-            padding: 0.8rem 1rem;
-            border-radius: var(--border-radius);
-            max-width: 85%;
-            word-break: break-word;
-            line-height: 1.4;
-            position: relative;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.user {
-            background-color: var(--primary-color);
-            color: white;
-            align-self: flex-end;
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.ai {
-            background-color: rgba(0, 0, 0, 0.05);
-            color: var(--text-color);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            margin-top: 0.3rem;
-            text-align: right;
-        }
-
-        .ai-input-container {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .ai-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: rgba(0, 0, 0, 0.03);
-            color: var(--text-color);
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .ai-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
-        }
-
-        .ai-submit {
-            padding: 0 1.2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ai-submit:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* Savings Styles */
-        .savings-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .savings-summary {
-            background-color: rgba(76, 201, 240, 0.1);
-            border-radius: var(--border-radius);
-            padding: 1.5rem 1rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            border-top: 4px solid var(--success-color);
-        }
-
-        .savings-summary h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .savings-amount {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--success-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .savings-target {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .savings-form {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .savings-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: rgba(0, 0, 0, 0.03);
-            color: var(--text-color);
-            font-size: 0.9rem;
-        }
-
-        .savings-input:focus {
-            outline: none;
-            border-color: var(--success-color);
-            box-shadow: 0 0 0 2px rgba(76, 201, 240, 0.2);
-        }
-
-        .savings-submit {
-            padding: 0 1.2rem;
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .savings-submit:hover {
-            background-color: #3aa8d8;
-        }
-
-        .savings-history {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .savings-history h3 {
-            margin-bottom: 0.8rem;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .savings-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            align-items: center;
-        }
-
-        .savings-item:last-child {
-            border-bottom: none;
-        }
-
-        .savings-date {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .savings-value {
-            font-weight: bold;
-            color: var(--success-color);
-        }
-
-        /* Task Styles */
-        .tasks-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .task-form {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .task-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: rgba(0, 0, 0, 0.03);
-            color: var(--text-color);
-            font-size: 0.9rem;
-        }
-
-        .task-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 2px rgba(72, 149, 239, 0.2);
-        }
-
-        .task-submit {
-            padding: 0 1.2rem;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .task-submit:hover {
-            background-color: #3a7bc8;
-        }
-
-        .tasks-list {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.8rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            gap: 0.8rem;
-        }
-
-        .task-item:last-child {
-            border-bottom: none;
-        }
-
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: var(--text-light);
-        }
-
-        .task-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .task-checkbox {
-            min-width: 1.2rem;
-            height: 1.2rem;
-            border-radius: 4px;
-            border: 2px solid var(--accent-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: transparent;
-            transition: var(--transition);
-        }
-
-        .task-item.completed .task-checkbox {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .task-text {
-            flex: 1;
-            word-break: break-word;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .task-edit-btn, .task-delete-btn {
-            background: none;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .task-edit-btn {
-            color: var(--accent-color);
-        }
-
-        .task-edit-btn:hover {
-            background-color: rgba(72, 149, 239, 0.1);
-        }
-
-        .task-delete-btn {
-            color: var(--danger-color);
-        }
-
-        .task-delete-btn:hover {
-            background-color: rgba(239, 71, 111, 0.1);
-        }
-
-        /* Calculator Styles */
-        .calculator-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .calculator-display {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            padding: 1.5rem 1rem;
-            margin-bottom: 1rem;
-            text-align: right;
-            font-size: 1.8rem;
-            font-weight: bold;
-            min-height: 70px;
-            color: var(--text-color);
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            white-space: nowrap;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-        }
-
-        .calculator-button {
-            padding: 1rem;
-            background-color: rgba(0, 0, 0, 0.03);
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: var(--transition);
-        }
-
-        .calculator-button:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .calculator-button.operator {
-            background-color: rgba(67, 97, 238, 0.1);
-            color: var(--primary-color);
-        }
-
-        .calculator-button.equals {
-            background-color: var(--primary-color);
-            color: white;
-            grid-column: span 2;
-        }
-
-        .calculator-button.clear {
-            background-color: rgba(239, 71, 111, 0.1);
-            color: var(--danger-color);
-        }
-
-        .calculator-button.delete {
-            background-color: rgba(248, 150, 30, 0.1);
-            color: var(--warning-color);
-        }
-
-        .calculator-ai {
-            margin-top: 1rem;
-        }
-
-        .calculator-ai h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .calculator-ai-input-container {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .calculator-ai-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: rgba(0, 0, 0, 0.03);
-            color: var(--text-color);
-            font-size: 0.9rem;
-        }
-
-        .calculator-ai-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
-        }
-
-        .calculator-ai-submit {
-            padding: 0 1.2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .calculator-ai-submit:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .calculator-ai-result {
-            margin-top: 1rem;
-            padding: 1rem;
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: var(--border-radius);
-            color: var(--text-color);
-            min-height: 50px;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        /* Button Styles */
+        /* BUTTON STYLES */
         .btn {
             padding: 0.6rem 1.2rem;
             background-color: var(--primary-color);
@@ -1007,7 +556,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 1rem;
+            text-decoration: none;
         }
 
         .btn:hover {
@@ -1024,77 +573,256 @@
             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* Responsive Styles */
+        .btn-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* SUBJECT COLORS */
+        .subject-color-1 { border-left-color: #4361ee; }
+        .subject-color-2 { border-left-color: #3f37c9; }
+        .subject-color-3 { border-left-color: #4895ef; }
+        .subject-color-4 { border-left-color: #4cc9f0; }
+        .subject-color-5 { border-left-color: #7209b7; }
+        .subject-color-6 { border-left-color: #560bad; }
+        .subject-color-7 { border-left-color: #480ca8; }
+        .subject-color-8 { border-left-color: #3a0ca3; }
+        .subject-color-9 { border-left-color: #3f37c9; }
+        .subject-color-10 { border-left-color: #4361ee; }
+        .subject-color-11 { border-left-color: #4895ef; }
+        .subject-color-12 { border-left-color: #4cc9f0; }
+
+        /* RESPONSIVE STYLES */
         @media (max-width: 768px) {
+            header {
+                padding: 0 1.5rem;
+                height: 60px;
+            }
+
+            .header-title h1 {
+                font-size: 1.2rem;
+            }
+
+            .header-time #real-clock {
+                font-size: 1rem;
+            }
+
+            #current-date {
+                font-size: 0.7rem;
+            }
+
             main {
-                margin: 4.5rem auto 1rem;
+                margin: 4rem auto 1rem;
                 padding: 1rem;
-            }
-
-            .countdown-container {
-                flex-direction: column;
-            }
-
-            .countdown-box {
-                min-width: 100%;
             }
 
             .card {
                 padding: 1rem;
             }
+
+            .countdown-time {
+                font-size: 1.5rem;
+            }
+
+            #calculator {
+                 max-width: 250px;
+            }
+
+            .calculator-buttons button {
+                padding: 0.8rem 0.3rem;
+                font-size: 1em;
+            }
+
+            #ai-chatbox {
+                height: 400px;
+            }
+
+             .chat-messages {
+                 padding: 0.8rem;
+             }
+
+            .message {
+                padding: 0.5rem 0.8rem;
+            }
+
+            .chat-input {
+                padding: 0.8rem;
+            }
+
+             .chat-input input[type="text"] {
+                 padding: 0.6rem;
+                 font-size: 0.9rem;
+                 margin-right: 0.6rem;
+             }
+
+             .chat-input .btn {
+                 padding: 0.6rem 1rem;
+                 font-size: 0.9rem;
+             }
         }
 
-        /* Loader Styles */
-        .loader {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 0.5rem;
+        /* --- New Styles for Calculator --- */
+        #calculator-panel .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        #calculator {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
         }
 
-        /* Scrollbar Styles */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        .calculator-display {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+            font-size: 2em;
+            padding: 1rem;
+            text-align: right;
+            min-height: 1.5em;
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 8px;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 3px;
+        .calculator-buttons button {
+            padding: 1.2rem 0.5rem;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            box-shadow: none;
+            transform: none;
         }
 
-        /* Animation */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .calculator-buttons button:hover {
+             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        .calculator-buttons button.btn-secondary {
+             background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .calculator-buttons button.btn-secondary:hover {
+             background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-buttons button.btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .calculator-buttons button.btn:hover {
+             background-color: var(--secondary-color);
+        }
+
+        .calculator-buttons .wide {
+            grid-column: span 2;
+        }
+
+        /* --- New Styles for AI Assistant --- */
+        #ai-chatbox {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: var(--bg-color);
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom-left-radius: 2px;
+        }
+
+        .ai-message.typing p {
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .ai-message p code {
+            background-color: rgba(0,0,0,0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            margin-right: 0.8rem;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .chat-input input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .chat-input .btn {
+             padding: 0.8rem 1.5rem;
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>Menu Dashboard</h3>
-            <button class="close-sidebar" id="close-sidebar">
-                <i class="fas fa-times"></i>
-            </button>
+            <h3>Student Smart</h3>
         </div>
         <div class="sidebar-menu">
             <a href="#" class="menu-item active" data-tab="countdown">
@@ -1109,21 +837,13 @@
                 <i class="fas fa-calendar"></i>
                 <span>Kalender</span>
             </a>
-            <a href="#" class="menu-item" data-tab="ai">
-                <i class="fas fa-robot"></i>
-                <span>AI Assistant</span>
-            </a>
-            <a href="#" class="menu-item" data-tab="savings">
-                <i class="fas fa-piggy-bank"></i>
-                <span>Tabungan Harian</span>
-            </a>
-            <a href="#" class="menu-item" data-tab="tasks">
-                <i class="fas fa-tasks"></i>
-                <span>Daftar Tugas</span>
-            </a>
             <a href="#" class="menu-item" data-tab="calculator">
                 <i class="fas fa-calculator"></i>
                 <span>Kalkulator</span>
+            </a>
+            <a href="#" class="menu-item" data-tab="ai-assistant">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
             </a>
             <a href="#" class="menu-item" id="theme-toggle-menu">
                 <i class="fas fa-moon"></i>
@@ -1134,35 +854,69 @@
     <div class="overlay" id="overlay"></div>
 
     <header>
-        <div class="header-content">
-            <h1>Student Dashboard</h1>
-            <p id="current-date">Loading...</p>
-            <p id="current-time">--:--:--</p>
+        <div class="header-title">
+            <h1>Student Smart</h1>
         </div>
+        <div class="header-time">
+            <p id="current-date">Loading...</p>
+            <span id="real-clock">--:--</span>
+            </div>
         <button class="menu-toggle" id="menu-toggle">
             <i class="fas fa-bars"></i>
         </button>
     </header>
 
     <main>
-        <!-- Countdown Panel (Default View) -->
         <div class="card" id="countdown-panel">
-            <h2><i class="fas fa-clock"></i> Countdown Timers</h2>
-            <div class="countdown-container">
-                <div class="countdown-box">
-                    <h3>Pelajaran Berikutnya</h3>
-                    <div class="time" id="next-class-countdown">--:--:--</div>
-                    <div class="info" id="next-class-name">Memuat...</div>
+            <h2><i class="fas fa-clock"></i> Countdown Timer</h2>
+            <div class="countdown-container" id="countdown-container">
+                <div class="countdown-item">
+                    <div class="countdown-header">
+                        <div class="countdown-title" id="class-countdown-title">Pelajaran Berikutnya</div>
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="countdown-time" id="class-countdown">--:--:--</div>
+                    <div class="countdown-info">
+                        <span id="class-name">Memuat...</span>
+                        <span id="class-time">--:--</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="class-progress"></div>
+                    </div>
                 </div>
-                <div class="countdown-box">
-                    <h3>Jam Pulang</h3>
-                    <div class="time" id="home-time-countdown">--:--:--</div>
-                    <div class="info">Pulang: 15:45</div>
+
+                <div class="countdown-item break">
+                    <div class="countdown-header">
+                        <div class="countdown-title" id="break-countdown-title">Istirahat Berikutnya</div>
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="countdown-time" id="break-countdown">--:--:--</div>
+                    <div class="countdown-info">
+                        <span id="break-name">Memuat...</span>
+                        <span id="break-time">--:--</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="break-progress"></div>
+                    </div>
+                </div>
+
+                <div class="countdown-item">
+                    <div class="countdown-header">
+                        <div class="countdown-title">Jam Pulang</div>
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="countdown-time" id="home-countdown">--:--:--</div>
+                    <div class="countdown-info">
+                        <span>Waktu pulang hari ini</span>
+                        <span>15:45</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="home-progress"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Schedule Panel (Hidden by default) -->
         <div class="card" id="schedule-panel" style="display: none;">
             <h2><i class="fas fa-calendar-alt"></i> Jadwal Pelajaran</h2>
             <div class="schedule-container" id="schedule-container">
@@ -1170,12 +924,19 @@
                     <h3><i class="fas fa-spinner fa-spin"></i> Memuat jadwal...</h3>
                 </div>
             </div>
-            <button class="btn" id="full-schedule-btn">
-                <i class="fas fa-calendar-week"></i> Lihat Full Jadwal
-            </button>
+            <div class="btn-group">
+                <button class="btn" id="today-schedule-btn">
+                    <i class="fas fa-calendar-day"></i> Hari Ini
+                </button>
+                <button class="btn" id="tomorrow-schedule-btn">
+                    <i class="fas fa-calendar-plus"></i> Besok
+                </button>
+                <button class="btn" id="full-schedule-btn">
+                    <i class="fas fa-calendar-week"></i> Full Jadwal
+                </button>
+            </div>
         </div>
 
-        <!-- Calendar Panel (Hidden by default) -->
         <div class="card" id="calendar-panel" style="display: none;">
             <h2><i class="fas fa-calendar"></i> Kalender</h2>
             <div class="calendar-container">
@@ -1201,126 +962,73 @@
                     <div class="calendar-day-header">Sab</div>
                 </div>
                 <div class="calendar-grid" id="calendar-days">
-                    <!-- Calendar days will be populated by JavaScript -->
-                </div>
+                    </div>
                 <div class="calendar-events">
                     <h3><i class="fas fa-calendar-check"></i> Hari Libur & Acara</h3>
                     <div id="calendar-events-list">
-                        <!-- Calendar events will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- AI Assistant Panel (Hidden by default) -->
-        <div class="card" id="ai-panel" style="display: none;">
-            <h2><i class="fas fa-robot"></i> AI Assistant</h2>
-            <div class="ai-container">
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message ai">
-                        Halo! Saya AI Assistant kamu. Ada yang bisa saya bantu?
-                        <div class="message-time">Baru saja</div>
-                    </div>
-                </div>
-                <div class="ai-input-container">
-                    <input type="text" id="ai-input" class="ai-input" placeholder="Tanyakan sesuatu...">
-                    <button id="ai-submit" class="ai-submit">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Savings Panel (Hidden by default) -->
-        <div class="card" id="savings-panel" style="display: none;">
-            <h2><i class="fas fa-piggy-bank"></i> Tabungan Harian</h2>
-            <div class="savings-container">
-                <div class="savings-summary">
-                    <h3>Total Tabungan Bulan Ini</h3>
-                    <div class="savings-amount" id="savings-total">Rp 0</div>
-                    <div class="savings-target">Target: Rp 500.000</div>
-                </div>
-                <div class="savings-form">
-                    <input type="number" id="savings-input" class="savings-input" placeholder="Jumlah tabungan hari ini...">
-                    <button id="savings-submit" class="savings-submit">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                <div class="savings-history">
-                    <h3><i class="fas fa-history"></i> Riwayat Tabungan</h3>
-                    <div id="savings-history-list">
-                        <div class="savings-item">
-                            <div class="savings-date">Belum ada riwayat</div>
-                            <div class="savings-value">Rp 0</div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tasks Panel (Hidden by default) -->
-        <div class="card" id="tasks-panel" style="display: none;">
-            <h2><i class="fas fa-tasks"></i> Daftar Tugas</h2>
-            <div class="tasks-container">
-                <div class="task-form">
-                    <input type="text" id="task-input" class="task-input" placeholder="Tambahkan tugas baru...">
-                    <button id="task-submit" class="task-submit">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                <div class="tasks-list" id="tasks-list">
-                    <div class="task-item">
-                        <div class="task-content">
-                            <div class="task-text">Belum ada tugas</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Calculator Panel (Hidden by default) -->
         <div class="card" id="calculator-panel" style="display: none;">
             <h2><i class="fas fa-calculator"></i> Kalkulator</h2>
-            <div class="calculator-container">
-                <div class="calculator-display" id="calculator-display">0</div>
+            <div id="calculator">
+                <div class="calculator-display">0</div>
                 <div class="calculator-buttons">
-                    <button class="calculator-button clear" data-action="clear">C</button>
-                    <button class="calculator-button delete" data-action="delete">DEL</button>
-                    <button class="calculator-button operator" data-action="operator">%</button>
-                    <button class="calculator-button operator" data-action="operator">/</button>
-                    <button class="calculator-button" data-digit="7">7</button>
-                    <button class="calculator-button" data-digit="8">8</button>
-                    <button class="calculator-button" data-digit="9">9</button>
-                    <button class="calculator-button operator" data-action="operator">*</button>
-                    <button class="calculator-button" data-digit="4">4</button>
-                    <button class="calculator-button" data-digit="5">5</button>
-                    <button class="calculator-button" data-digit="6">6</button>
-                    <button class="calculator-button operator" data-action="operator">-</button>
-                    <button class="calculator-button" data-digit="1">1</button>
-                    <button class="calculator-button" data-digit="2">2</button>
-                    <button class="calculator-button" data-digit="3">3</button>
-                    <button class="calculator-button operator" data-action="operator">+</button>
-                    <button class="calculator-button" data-digit="0">0</button>
-                    <button class="calculator-button" data-digit=".">.</button>
-                    <button class="calculator-button equals" data-action="calculate">=</button>
+                    <button class="btn btn-secondary" data-value="C">C</button>
+                    <button class="btn btn-secondary" data-value="del"><i class="fas fa-backspace"></i></button>
+                    <button class="btn btn-secondary" data-value="/">/</button>
+                    <button class="btn" data-value="*">*</button>
+
+                    <button class="btn btn-secondary" data-value="7">7</button>
+                    <button class="btn btn-secondary" data-value="8">8</button>
+                    <button class="btn btn-secondary" data-value="9">9</button>
+                    <button class="btn" data-value="-">-</button>
+
+                    <button class="btn btn-secondary" data-value="4">4</button>
+                    <button class="btn btn-secondary" data-value="5">5</button>
+                    <button class="btn btn-secondary" data-value="6">6</button>
+                    <button class="btn" data-value="+">+</button>
+
+                    <button class="btn btn-secondary" data-value="1">1</button>
+                    <button class="btn btn-secondary" data-value="2">2</button>
+                    <button class="btn btn-secondary" data-value="3">3</button>
+                    <button class="btn" data-value=".">.</button>
+
+                    <button class="btn btn-secondary wide" data-value="0">0</button>
+                    <button class="btn" data-value="=">=</button>
                 </div>
-                <div class="calculator-ai">
-                    <h3><i class="fas fa-robot"></i> Kalkulator dengan AI</h3>
-                    <div class="calculator-ai-input-container">
-                        <input type="text" id="calculator-ai-input" class="calculator-ai-input" placeholder="Cth: Berapa akar kuadrat dari 144?">
-                        <button id="calculator-ai-submit" class="calculator-ai-submit">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
+            </div>
+        </div>
+
+        <div class="card" id="ai-assistant-panel" style="display: none;">
+            <h2><i class="fas fa-robot"></i> AI Assistant</h2>
+            <div id="ai-chatbox">
+                <div class="chat-messages">
+                    <div class="message ai-message">
+                        <p>Halo! Saya AI Assistant yang siap membantu Anda. Anda bisa bertanya tentang:</p>
+                        <ul>
+                            <li>Jadwal pelajaran</li>
+                            <li>Kalender akademik</li>
+                            <li>Materi pelajaran</li>
+                            <li>Tips belajar efektif</li>
+                            <li>Dan banyak lagi!</li>
+                        </ul>
                     </div>
-                    <div class="calculator-ai-result" id="calculator-ai-result">
-                        Ketikkan pertanyaan matematika di atas untuk mendapatkan jawaban.
-                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Ketik pertanyaan Anda di sini...">
+                    <button class="btn" id="send-btn"><i class="fas fa-paper-plane"></i> Kirim</button>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
+        // Subject colors mapping
+        const subjectColors = {};
+
         // Schedule Data with breaks
         const schedule = {
             senin: [
@@ -1331,21 +1039,23 @@
                 { subject: "IPAS", teacher: "Bu Inem", time: "09:25", duration: 90 },
                 { subject: "Bahasa Inggris", teacher: "Pak Alvan", time: "10:55", duration: 85 },
                 { subject: "Istirahat", teacher: "", time: "12:20", duration: 45, isBreak: true },
-                { subject: "Bahasa Indonesia", teacher: "Bu Risa", time: "13:05", duration: 80 }
+                { subject: "Bahasa Inggris", teacher: "Pak Alvan", time: "13:05", duration: 80 },
+                { subject: "Bahasa Indonesia", teacher: "Bu Risa", time: "14:25", duration: 80 }
             ],
             selasa: [
                 { subject: "IPAS", teacher: "Bu Inem", time: "06:30", duration: 100 },
-                { subject: "BP", teacher: "Bu Leli", time: "08:10", duration: 15 },
-                { subject: "OR", teacher: "Pak Dimas", time: "08:25", duration: 135 },
+                { subject: "BP", teacher: "Bu Leli", time: "08:10", duration: 45 },
                 { subject: "Istirahat", teacher: "", time: "08:55", duration: 30, isBreak: true },
-                { subject: "Matematika", teacher: "Bu Rica", time: "11:25", duration: 40 },
+                { subject: "OR", teacher: "Pak Dimas", time: "09:25", duration: 135 },
+                { subject: "Matematika", teacher: "Bu Rica", time: "11:40", duration: 40 },
                 { subject: "Istirahat", teacher: "", time: "12:20", duration: 45, isBreak: true },
-                { subject: "DD E1-3E1-3 X", teacher: "Bu Melinda", time: "13:05", duration: 80 }
+                { subject: "DD E1-3 X", teacher: "Bu Melinda", time: "13:05", duration: 160 }
             ],
             rabu: [
-                { subject: "DD E4-7 X", teacher: "Pak Sadikin", time: "06:30", duration: 220 },
+                { subject: "DD E4-7 X", teacher: "Pak Sadikin", time: "06:30", duration: 145 },
                 { subject: "Istirahat", teacher: "", time: "08:55", duration: 30, isBreak: true },
-                { subject: "Matematika", teacher: "Bu Rica", time: "10:55", duration: 130 },
+                { subject: "DD E4-7 X", teacher: "Pak Sadikin", time: "09:25", duration: 45 },
+                { subject: "Matematika", teacher: "Bu Rica", time: "10:10", duration: 130 },
                 { subject: "Istirahat", teacher: "", time: "12:20", duration: 45, isBreak: true },
                 { subject: "SBY", teacher: "Bu Aya", time: "13:05", duration: 80 },
                 { subject: "Bahasa Indonesia", teacher: "Bu Risa", time: "14:25", duration: 80 }
@@ -1353,10 +1063,11 @@
             kamis: [
                 { subject: "BP", teacher: "Bu Leli", time: "06:30", duration: 55 },
                 { subject: "Bahasa Sunda", teacher: "Bu Dewi", time: "07:25", duration: 45 },
-                {subject: "PAI", teacher: "Pak Romdon", time: "08:10", duration: 45 },
-                { subject: "Informatika", teacher: "Pak Arifin", time: "08:25", duration: 150 },
+                { subject: "PAI", teacher: "Pak Romdon", time: "08:10", duration: 45 },
                 { subject: "Istirahat", teacher: "", time: "08:55", duration: 30, isBreak: true },
-                { subject: "PPKN", teacher: "Bu Isni", time: "11:40", duration: 85 },
+                { subject: "Informatika", teacher: "Pak Arifin", time: "09:25", duration: 90 },
+                
+                { subject: "PPKN", teacher: "Bu Isni", time: "10:55", duration: 85 },
                 { subject: "Istirahat", teacher: "", time: "12:20", duration: 45, isBreak: true },
                 { subject: "Sejarah", teacher: "Pak Rachmat", time: "13:05", duration: 80 },
                 { subject: "Coding XI", teacher: "Pak Arifin", time: "14:25", duration: 80 }
@@ -1364,239 +1075,467 @@
             jumat: [
                 { subject: "DD E4-7 X", teacher: "Pak Sadikin", time: "06:30", duration: 220 },
                 { subject: "Istirahat", teacher: "", time: "08:55", duration: 30, isBreak: true },
-                { subject: "IPAS", teacher: "Bu Inem", time: "10:55", duration: 80 }
+                { subject: "DD E4-7 X", teacher: "Pak Sadikin", time: "09:25", duration: 45 },
+                { subject: "IPAS", teacher: "Bu Inem", time: "10:10", duration: 90 }
             ]
         };
 
-        // National Holidays Data (2023 examples)
+        // National Holidays Data (2025 examples)
         const nationalHolidays = {
-    "2025-01-01": { "title": "Tahun Baru 2025 Masehi", "description": "Hari Libur Nasional" },
-    "2025-01-27": { "title": "Isra Mikraj Nabi Muhammad SAW", "description": "Hari Libur Nasional" },
-    "2025-01-28": { "title": "Cuti Bersama Tahun Baru Imlek 2576 Kongzili", "description": "Cuti Bersama" },
-    "2025-01-29": { "title": "Tahun Baru Imlek 2576 Kongzili", "description": "Hari Libur Nasional" },
-    "2025-03-28": { "title": "Cuti Bersama Hari Suci Nyepi", "description": "Cuti Bersama" },
-    "2025-03-29": { "title": "Hari Suci Nyepi (Tahun Baru Saka 1947)", "description": "Hari Libur Nasional" },
-    "2025-03-31": { "title": "Idul Fitri 1446 Hijriah", "description": "Hari Libur Nasional" },
-    "2025-04-01": { "title": "Idul Fitri 1446 Hijriah", "description": "Hari Libur Nasional" },
-    "2025-04-02": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
-    "2025-04-03": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
-    "2025-04-04": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
-    "2025-04-07": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
-    "2025-04-18": { "title": "Wafat Yesus Kristus", "description": "Hari Libur Nasional" },
-    "2025-04-20": { "title": "Kebangkitan Yesus Kristus (Paskah)", "description": "Hari Libur Nasional" },
-    "2025-05-01": { "title": "Hari Buruh Internasional", "description": "Hari Libur Nasional" },
-    "2025-05-12": { "title": "Hari Raya Waisak 2569 BE", "description": "Hari Libur Nasional" },
-    "2025-05-13": { "title": "Cuti Bersama Hari Raya Waisak 2569 BE", "description": "Cuti Bersama" },
-    "2025-05-29": { "title": "Kenaikan Yesus Kristus", "description": "Hari Libur Nasional" },
-    "2025-05-30": { "title": "Cuti Bersama Kenaikan Yesus Kristus", "description": "Cuti Bersama" },
-    "2025-06-01": { "title": "Hari Lahir Pancasila", "description": "Hari Libur Nasional" },
-    "2025-06-06": { "title": "Idul Adha 1446 Hijriah", "description": "Hari Libur Nasional" },
-    "2025-06-09": { "title": "Cuti Bersama Idul Adha 1446 Hijriah", "description": "Cuti Bersama" },
-    "2025-06-27": { "title": "Tahun Baru Islam 1 Muharram 1447 Hijriah", "description": "Hari Libur Nasional" },
-    "2025-08-17": { "title": "Hari Kemerdekaan Republik Indonesia", "description": "Hari Libur Nasional" },
-    "2025-09-05": { "title": "Maulid Nabi Muhammad SAW", "description": "Hari Libur Nasional" },
-    "2025-12-25": { "title": "Hari Raya Natal", "description": "Hari Libur Nasional" },
-    "2025-12-26": { "title": "Cuti Bersama Hari Raya Natal", "description": "Cuti Bersama" }
+            "2025-01-01": { "title": "Tahun Baru 2025 Masehi", "description": "Hari Libur Nasional" },
+            "2025-01-27": { "title": "Isra Mikraj Nabi Muhammad SAW", "description": "Hari Libur Nasional" },
+            "2025-01-28": { "title": "Cuti Bersama Tahun Baru Imlek 2576 Kongzili", "description": "Cuti Bersama" },
+            "2025-01-29": { "title": "Tahun Baru Imlek 2576 Kongzili", "description": "Hari Libur Nasional" },
+            "2025-03-28": { "title": "Cuti Bersama Hari Suci Nyepi", "description": "Cuti Bersama" },
+            "2025-03-29": { "title": "Hari Suci Nyepi (Tahun Baru Saka 1947)", "description": "Hari Libur Nasional" },
+            "2025-03-31": { "title": "Idul Fitri 1446 Hijriah", "description": "Hari Libur Nasional" },
+            "2025-04-01": { "title": "Idul Fitri 1446 Hijriah", "description": "Hari Libur Nasional" },
+            "2025-04-02": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
+            "2025-04-03": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
+            "2025-04-04": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
+            "2025-04-07": { "title": "Cuti Bersama Idul Fitri 1446 Hijriah", "description": "Cuti Bersama" },
+            "2025-04-18": { "title": "Wafat Yesus Kristus", "description": "Hari Libur Nasional" },
+            "2025-04-20": { "title": "Kebangkitan Yesus Kristus (Paskah)", "description": "Hari Libur Nasional" },
+            "2025-05-01": { "title": "Hari Buruh Internasional", "description": "Hari Libur Nasional" },
+            "2025-05-12": { "title": "Hari Raya Waisak 2569 BE", "description": "Hari Libur Nasional" },
+            "2025-05-13": { "title": "Cuti Bersama Hari Raya Waisak 2569 BE", "description": "Cuti Bersama" },
+            "2025-05-29": { "title": "Kenaikan Yesus Kristus", "description": "Hari Libur Nasional" },
+            "2025-05-30": { "title": "Cuti Bersama Kenaikan Yesus Kristus", "description": "Cuti Bersama" },
+            "2025-06-01": { "title": "Hari Lahir Pancasila", "description": "Hari Libur Nasional" },
+            "2025-06-06": { "title": "Idul Adha 1446 Hijriah", "description": "Hari Libur Nasional" },
+            "2025-06-09": { "title": "Cuti Bersama Idul Adha 1446 Hijriah", "description": "Cuti Bersama" },
+            "2025-06-27": { "title": "Tahun Baru Islam 1 Muharram 1447 Hijriah", "description": "Hari Libur Nasional" },
+            "2025-08-17": { "title": "Hari Kemerdekaan Republik Indonesia", "description": "Hari Libur Nasional" },
+            "2025-09-05": { "title": "Maulid Nabi Muhammad SAW", "description": "Hari Libur Nasional" },
+            "2025-12-25": { "title": "Hari Raya Natal", "description": "Hari Libur Nasional" },
+            "2025-12-26": { "title": "Cuti Bersama Hari Raya Natal", "description": "Cuti Bersama" }
         };
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the application
             initApp();
         });
 
         function initApp() {
-            // Set current date and time
+            initSubjectColors();
             updateCurrentDate();
-            
-            // Initialize theme
             initTheme();
-            
-            // Initialize sidebar menu
             initSidebar();
-            
-            // Initialize schedule
-            initSchedule();
-            
-            // Initialize calendar
-            initCalendar();
-            
-            // Initialize countdown timers
             initCountdownTimers();
-            
-            // Initialize AI Assistant
-            initAIAssistant();
-            
-            // Initialize Savings
-            initSavings();
-            
-            // Initialize Tasks
-            initTasks();
-            
-            // Initialize Calculator
+            initSchedule();
+            initCalendar();
             initCalculator();
+            initAIAssistant();
+
+            setInterval(updateCurrentTime, 1000);
+            updateCurrentTime();
         }
 
         function updateCurrentDate() {
             const daysIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             const now = new Date();
-            const dayName = daysIndo[now.getDay()];
-            const date = now.getDate();
-            const monthName = monthsIndo[now.getMonth()];
-            const year = now.getFullYear();
-            
-            document.getElementById('current-date').textContent = `${dayName}, ${date} ${monthName} ${year}`;
-            
-            // Update jam setiap detik
-            setInterval(updateCurrentTime, 1000);
-            updateCurrentTime();
+
+            document.getElementById('current-date').textContent =
+                `${daysIndo[now.getDay()]}, ${now.getDate()} ${monthsIndo[now.getMonth()]}`;
         }
 
         function updateCurrentTime() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds}`;
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const clockEl = document.getElementById('real-clock');
+            if (clockEl) {
+                clockEl.textContent = timeStr;
+            }
+        }
+
+        function initSubjectColors() {
+            const allSubjects = [];
+
+            Object.values(schedule).forEach(daySchedule => {
+                daySchedule.forEach(item => {
+                    if (!item.isBreak && !allSubjects.includes(item.subject)) {
+                        allSubjects.push(item.subject);
+                    }
+                });
+            });
+
+            allSubjects.forEach((subject, index) => {
+                const colorIndex = (index % 12) + 1;
+                subjectColors[subject] = colorIndex;
+            });
         }
 
         function initTheme() {
-            const themeToggleMenu = document.getElementById('theme-toggle-menu');
+            const themeToggle = document.getElementById('theme-toggle-menu');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            // Set initial theme
+
             if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                themeToggleMenu.innerHTML = '<i class="fas fa-sun"></i><span>Mode Terang</span>';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Mode Terang</span>';
             } else {
                 document.documentElement.removeAttribute('data-theme');
-                themeToggleMenu.innerHTML = '<i class="fas fa-moon"></i><span>Mode Gelap</span>';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Mode Gelap</span>';
             }
-            
-            // Toggle theme
-            function toggleTheme() {
+
+            themeToggle.addEventListener('click', () => {
                 if (document.documentElement.getAttribute('data-theme') === 'dark') {
                     document.documentElement.removeAttribute('data-theme');
                     localStorage.setItem('theme', 'light');
-                    themeToggleMenu.innerHTML = '<i class="fas fa-moon"></i><span>Mode Gelap</span>';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Mode Gelap</span>';
                 } else {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
-                    themeToggleMenu.innerHTML = '<i class="fas fa-sun"></i><span>Mode Terang</span>';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Mode Terang</span>';
                 }
-            }
-            
-            themeToggleMenu.addEventListener('click', toggleTheme);
+            });
         }
 
         function initSidebar() {
             const menuToggle = document.getElementById('menu-toggle');
-            const closeSidebar = document.getElementById('close-sidebar');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
             const menuItems = document.querySelectorAll('.menu-item');
-            
+
+            let sidebarOpen = false;
+
             menuToggle.addEventListener('click', () => {
-                sidebar.classList.add('active');
-                overlay.classList.add('active');
-            });
-            
-            closeSidebar.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            });
-            
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            });
-            
-            menuItems.forEach(item => {
-                if (item.id !== 'theme-toggle-menu') {
-                    item.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const tabName = item.getAttribute('data-tab');
-                        
-                        // Close sidebar
-                        sidebar.classList.remove('active');
-                        overlay.classList.remove('active');
-                        
-                        // Hide all panels
-                        document.querySelectorAll('.card').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        
-                        // Show selected panel
-                        document.getElementById(`${tabName}-panel`).style.display = 'block';
-                        
-                        // Update active menu item
-                        menuItems.forEach(i => i.classList.remove('active'));
-                        item.classList.add('active');
-                        
-                        // Special cases
-                        if (tabName === 'schedule') {
-                            renderTodaySchedule();
-                        } else if (tabName === 'calendar') {
-                            renderCalendar(new Date());
-                        }
-                    });
+                sidebarOpen = !sidebarOpen;
+                sidebar.classList.toggle('active', sidebarOpen);
+                overlay.classList.toggle('active', sidebarOpen);
+
+                if (sidebarOpen) {
+                    menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
+
+            overlay.addEventListener('click', () => {
+                sidebarOpen = false;
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+
+            menuItems.forEach(item => {
+                if (!item.id || item.id !== 'theme-toggle-menu') {
+                     item.addEventListener('click', (e) => {
+                         e.preventDefault();
+                         const tabName = item.getAttribute('data-tab');
+
+                         sidebarOpen = false;
+                         sidebar.classList.remove('active');
+                         overlay.classList.remove('active');
+                         menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+
+                         document.querySelectorAll('main .card').forEach(panel => {
+                             panel.style.display = 'none';
+                         });
+
+                         const targetPanel = document.getElementById(`${tabName}-panel`);
+                         if (targetPanel) {
+                            targetPanel.style.display = 'block';
+                         }
+
+                         menuItems.forEach(i => i.classList.remove('active'));
+                         item.classList.add('active');
+
+                         if (tabName === 'schedule') {
+                             renderTodaySchedule();
+                         } else if (tabName === 'calendar') {
+                             renderCalendar(new Date());
+                         }
+                     });
+                }
+            });
+
+             const activeTab = document.querySelector('.menu-item.active');
+             if(activeTab) {
+                  const tabName = activeTab.getAttribute('data-tab');
+                  const targetPanel = document.getElementById(`${tabName}-panel`);
+                  if (targetPanel) {
+                     targetPanel.style.display = 'block';
+                      if (tabName === 'schedule') {
+                          renderTodaySchedule();
+                      } else if (tabName === 'calendar') {
+                          renderCalendar(new Date());
+                      }
+                  } else {
+                    document.getElementById('countdown-panel').style.display = 'block';
+                  }
+             } else {
+                 document.getElementById('countdown-panel').style.display = 'block';
+             }
+        }
+
+        function initCountdownTimers() {
+            updateCountdownTimers();
+            setInterval(updateCountdownTimers, 1000);
+        }
+
+        function updateCountdownTimers() {
+            const now = new Date();
+            const currentDay = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'][now.getDay()];
+            const currentTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+            let nextClass = null, nextBreak = null;
+            let nextClassTime = null, nextBreakTime = null;
+            let currentClass = null, currentBreak = null;
+
+            if (schedule[currentDay]) {
+                for (const event of schedule[currentDay]) {
+                    const [hours, minutes] = event.time.split(':').map(Number);
+                    const eventTime = hours * 3600 + minutes * 60;
+                    const eventEndTime = eventTime + (event.duration * 60);
+
+                    // Check if this is the current class or break
+                    if (currentTime >= eventTime && currentTime < eventEndTime) {
+                        if (event.isBreak) {
+                            currentBreak = event;
+                        } else {
+                            currentClass = event;
+                        }
+                    }
+
+                    // Check for next class or break
+                    if (eventTime > currentTime) {
+                        if (event.isBreak) {
+                            if (!nextBreak) {
+                                nextBreak = event;
+                                nextBreakTime = eventTime;
+                            }
+                        } else {
+                            if (!nextClass) {
+                                nextClass = event;
+                                nextClassTime = eventTime;
+                            }
+                        }
+                    }
+
+                    if (nextClass && nextBreak) break;
+                }
+            }
+
+            // Update class countdown
+            if (document.getElementById('class-countdown')) {
+                if (currentClass) {
+                    // Show countdown to class end
+                    const [hours, minutes] = currentClass.time.split(':').map(Number);
+                    const classEndTime = (hours * 3600) + (minutes * 60) + (currentClass.duration * 60);
+                    const timeToEnd = classEndTime - currentTime;
+                    
+                    document.getElementById('class-countdown-title').textContent = 'Pelajaran Berakhir Dalam';
+                    updateCountdown('class', currentClass, classEndTime, currentTime, true);
+                } else if (nextClass) {
+                    // Show countdown to next class
+                    document.getElementById('class-countdown-title').textContent = 'Pelajaran Berikutnya';
+                    updateCountdown('class', nextClass, nextClassTime, currentTime);
+                } else {
+                    document.getElementById('class-countdown').textContent = '00:00:00';
+                    document.getElementById('class-name').textContent = 'Tidak ada pelajaran';
+                    document.getElementById('class-time').textContent = '';
+                    document.getElementById('class-progress').style.width = '0%';
+                }
+            }
+
+            // Update break countdown
+            if (document.getElementById('break-countdown')) {
+                if (currentBreak) {
+                    // Show countdown to break end
+                    const [hours, minutes] = currentBreak.time.split(':').map(Number);
+                    const breakEndTime = (hours * 3600) + (minutes * 60) + (currentBreak.duration * 60);
+                    const timeToEnd = breakEndTime - currentTime;
+                    
+                    document.getElementById('break-countdown-title').textContent = 'Istirahat Berakhir Dalam';
+                    updateCountdown('break', currentBreak, breakEndTime, currentTime, true);
+                } else if (nextBreak) {
+                    // Show countdown to next break
+                    document.getElementById('break-countdown-title').textContent = 'Istirahat Berikutnya';
+                    updateCountdown('break', nextBreak, nextBreakTime, currentTime);
+                } else {
+                    document.getElementById('break-countdown').textContent = '00:00:00';
+                    document.getElementById('break-name').textContent = 'Tidak ada istirahat';
+                    document.getElementById('break-time').textContent = '';
+                    document.getElementById('break-progress').style.width = '0%';
+                }
+            }
+
+            // Update home countdown
+            if (document.getElementById('home-countdown')) {
+                const homeTime = 15 * 3600 + 45 * 60;
+                let timeToHome = homeTime - currentTime;
+                const homeInfoTimeEl = document.querySelector('.countdown-item:last-child .countdown-info span:last-child');
+
+                if (timeToHome < 0) {
+                    timeToHome += 24 * 3600;
+                    if(homeInfoTimeEl) homeInfoTimeEl.textContent = '15:45 (Besok)';
+                } else {
+                     if(homeInfoTimeEl && homeInfoTimeEl.textContent.includes('(Besok)')) {
+                         homeInfoTimeEl.textContent = '15:45';
+                     }
+                }
+
+                const homeHours = Math.floor(timeToHome / 3600);
+                const homeMins = Math.floor((timeToHome % 3600) / 60);
+                const homeSecs = timeToHome % 60;
+
+                document.getElementById('home-countdown').textContent =
+                    `${homeHours.toString().padStart(2, '0')}:${homeMins.toString().padStart(2, '0')}:${homeSecs.toString().padStart(2, '0')}`;
+
+                const schoolStart = 7 * 3600;
+                const schoolEnd = 15 * 3600 + 45 * 60;
+                const totalSchoolDuration = schoolEnd - schoolStart;
+
+                let timePassedToday = currentTime - schoolStart;
+
+                let homeProgress = 0;
+                if (currentTime >= schoolStart && currentTime <= schoolEnd) {
+                    homeProgress = Math.min(100, (timePassedToday / totalSchoolDuration) * 100);
+                } else if (currentTime > schoolEnd) {
+                     homeProgress = 100;
+                }
+
+                document.getElementById('home-progress').style.width = `${homeProgress}%`;
+            }
+        }
+
+        function updateCountdown(type, event, eventTime, currentTime, isCurrent = false) {
+            const timeDiff = eventTime - currentTime;
+            
+            if (timeDiff < 0) {
+                 const countdownEl = document.getElementById(`${type}-countdown`);
+                 if(countdownEl) countdownEl.textContent = '00:00:00';
+                 const progressEl = document.getElementById(`${type}-progress`);
+                 if(progressEl) progressEl.style.width = `100%`;
+                 return;
+            }
+
+            const hours = Math.floor(timeDiff / 3600);
+            const mins = Math.floor((timeDiff % 3600) / 60);
+            const secs = timeDiff % 60;
+
+            const countdownEl = document.getElementById(`${type}-countdown`);
+            const nameEl = document.getElementById(`${type}-name`);
+            const timeEl = document.getElementById(`${type}-time`);
+            const progressEl = document.getElementById(`${type}-progress`);
+
+            if(countdownEl) countdownEl.textContent =
+                `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            if(nameEl) nameEl.textContent =
+                type === 'break' ? 'Istirahat' : event.subject;
+
+            if(timeEl) {
+                if (isCurrent) {
+                    const [startHours, startMinutes] = event.time.split(':').map(Number);
+                    const endTime = calculateEndTime(event.time, event.duration);
+                    timeEl.textContent = `${event.time} - ${endTime}`;
+                } else {
+                    timeEl.textContent = event.time;
+                }
+            }
+
+            const [startHours, startMinutes] = event.time.split(':').map(Number);
+            const startTimeInSeconds = startHours * 3600 + startMinutes * 60;
+            const durationInSeconds = event.duration * 60;
+            const endTimeInSeconds = startTimeInSeconds + durationInSeconds;
+
+            let progress = 0;
+            if (currentTime >= startTimeInSeconds && currentTime < endTimeInSeconds) {
+                 progress = Math.min(100, ((currentTime - startTimeInSeconds) / durationInSeconds) * 100);
+            } else if (currentTime >= endTimeInSeconds) {
+                 progress = 100;
+            }
+
+            if(progressEl) progressEl.style.width = `${progress}%`;
         }
 
         function initSchedule() {
-            // Tampilkan jadwal hari ini
-            renderTodaySchedule();
-            
-            // Tambahkan event listener untuk tombol full jadwal
-            document.getElementById('full-schedule-btn').addEventListener('click', renderFullSchedule);
+            const schedulePanel = document.getElementById('schedule-panel');
+            if (!schedulePanel) return;
+
+            const todayBtn = document.getElementById('today-schedule-btn');
+            const tomorrowBtn = document.getElementById('tomorrow-schedule-btn');
+            const fullBtn = document.getElementById('full-schedule-btn');
+
+            if (todayBtn) todayBtn.addEventListener('click', renderTodaySchedule);
+            if (tomorrowBtn) tomorrowBtn.addEventListener('click', renderTomorrowSchedule);
+            if (fullBtn) fullBtn.addEventListener('click', renderFullSchedule);
         }
 
         function renderTodaySchedule() {
             const daysIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            const today = new Date().getDay(); // 0 = Minggu, 1 = Senin, dst.
+            const today = new Date().getDay();
             const todayName = daysIndo[today];
-            const todaySchedule = schedule[todayName.toLowerCase()];
-            
+            renderScheduleForDay(todayName, true);
+        }
+
+        function renderTomorrowSchedule() {
+            const daysIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const tomorrow = (new Date().getDay() + 1) % 7;
+            const tomorrowName = daysIndo[tomorrow];
+            renderScheduleForDay(tomorrowName, false);
+        }
+
+        function renderScheduleForDay(dayName, isToday) {
+            const dayKey = dayName.toLowerCase();
+            const daySchedule = schedule[dayKey];
+
             const scheduleContainer = document.getElementById('schedule-container');
+             if (!scheduleContainer) return;
+
             scheduleContainer.innerHTML = '';
-            
+
             const dayElement = document.createElement('div');
             dayElement.className = 'schedule-day';
-            
+
             const dayTitle = document.createElement('h3');
-            dayTitle.innerHTML = `<i class="fas fa-calendar-day"></i> ${todayName}`;
-            dayTitle.className = 'current-day';
+            dayTitle.innerHTML = `<i class="fas fa-calendar-day"></i> ${dayName}`;
+            if (isToday) {
+                dayTitle.classList.add('current-day');
+            }
             dayElement.appendChild(dayTitle);
-            
-            if (todaySchedule && todaySchedule.length > 0) {
+
+            if (daySchedule && daySchedule.length > 0) {
                 const now = new Date();
                 const currentTime = now.getHours() * 60 + now.getMinutes();
-                let foundCurrent = false;
-                
-                todaySchedule.forEach(item => {
+                let foundCurrentOrNext = false;
+
+                daySchedule.forEach(item => {
                     const [hours, minutes] = item.time.split(':').map(Number);
-                    const classTime = hours * 60 + minutes;
-                    const endTime = classTime + item.duration;
-                    
+                    const startTimeInMinutes = hours * 60 + minutes;
+                    const endTimeInMinutes = startTimeInMinutes + item.duration;
+
                     const scheduleItem = createScheduleItem(item);
-                    
-                    // Tandai pelajaran saat ini
-                    if (currentTime >= classTime && currentTime <= endTime && !foundCurrent) {
-                        scheduleItem.classList.add('current-subject');
-                        foundCurrent = true;
-                    } 
-                    // Tandai pelajaran berikutnya jika belum ada pelajaran saat ini
-                    else if (currentTime < classTime && !foundCurrent) {
-                        scheduleItem.classList.add('next-subject');
-                        foundCurrent = true; // Hanya tandai satu pelajaran berikutnya
+
+                    if (isToday && !foundCurrentOrNext) {
+                        if (currentTime >= startTimeInMinutes && currentTime < endTimeInMinutes) {
+                            scheduleItem.classList.add('current-subject');
+                            foundCurrentOrNext = true;
+                        } else if (currentTime < startTimeInMinutes && !item.isBreak) {
+                             let firstUpcomingNonBreak = null;
+                             for(const upcomingItem of daySchedule) {
+                                 const [upcomingHours, upcomingMinutes] = upcomingItem.time.split(':').map(Number);
+                                 const upcomingStartTime = upcomingHours * 60 + upcomingMinutes;
+                                 if (upcomingStartTime > currentTime && !upcomingItem.isBreak) {
+                                     firstUpcomingNonBreak = upcomingItem;
+                                     break;
+                                 }
+                             }
+
+                            if (firstUpcomingNonBreak && item === firstUpcomingNonBreak) {
+                                 scheduleItem.classList.add('next-subject');
+                                 foundCurrentOrNext = true;
+                             }
+                        }
                     }
-                    
-                    // Tandai istirahat
+
                     if (item.isBreak) {
                         scheduleItem.classList.add('break-item');
+                    } else if (subjectColors[item.subject]) {
+                        scheduleItem.classList.add(`subject-color-${subjectColors[item.subject]}`);
                     }
-                    
+
                     dayElement.appendChild(scheduleItem);
                 });
             } else {
@@ -1605,107 +1544,94 @@
                 noClassItem.textContent = 'Tidak ada pelajaran hari ini';
                 dayElement.appendChild(noClassItem);
             }
-            
+
             scheduleContainer.appendChild(dayElement);
         }
 
         function renderFullSchedule() {
             const daysIndo = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
             const scheduleContainer = document.getElementById('schedule-container');
+            if (!scheduleContainer) return;
+
             scheduleContainer.innerHTML = '';
-            
+
             const now = new Date();
-            const currentDay = now.getDay(); // 0 = Minggu, 1 = Senin, dst.
-            const currentTime = now.getHours() * 60 + now.getMinutes();
-            
-            daysIndo.forEach(dayName => {
-                const daySchedule = schedule[dayName.toLowerCase()];
-                
+            const currentDayIndex = now.getDay();
+
+            daysIndo.forEach((dayName, index) => {
+                const dayKey = dayName.toLowerCase();
+                const daySchedule = schedule[dayKey];
+
                 const dayElement = document.createElement('div');
                 dayElement.className = 'schedule-day';
-                
+
                 const dayTitle = document.createElement('h3');
                 dayTitle.innerHTML = `<i class="fas fa-calendar-day"></i> ${dayName}`;
-                
-                // Tandai hari ini
-                if (currentDay - 1 === daysIndo.indexOf(dayName)) {
-                    dayTitle.className = 'current-day';
+
+                if (currentDayIndex === index + 1) {
+                    dayTitle.classList.add('current-day');
                 }
-                
+
                 dayElement.appendChild(dayTitle);
-                
+
                 if (daySchedule && daySchedule.length > 0) {
-                    let foundCurrent = false;
-                    
                     daySchedule.forEach(item => {
-                        const [hours, minutes] = item.time.split(':').map(Number);
-                        const classTime = hours * 60 + minutes;
-                        const endTime = classTime + item.duration;
-                        
                         const scheduleItem = createScheduleItem(item);
-                        
-                        // Tandai pelajaran saat ini hanya untuk hari ini
-                        if (currentDay - 1 === daysIndo.indexOf(dayName)) {
-                            if (currentTime >= classTime && currentTime <= endTime && !foundCurrent) {
-                                scheduleItem.classList.add('current-subject');
-                                foundCurrent = true;
-                            } 
-                            // Tandai pelajaran berikutnya jika belum ada pelajaran saat ini
-                            else if (currentTime < classTime && !foundCurrent) {
-                                scheduleItem.classList.add('next-subject');
-                                foundCurrent = true;
-                            }
-                        }
-                        
-                        // Tandai istirahat
+
                         if (item.isBreak) {
                             scheduleItem.classList.add('break-item');
+                        } else if (subjectColors[item.subject]) {
+                            scheduleItem.classList.add(`subject-color-${subjectColors[item.subject]}`);
                         }
-                        
+
                         dayElement.appendChild(scheduleItem);
                     });
                 } else {
                     const noClassItem = document.createElement('div');
                     noClassItem.className = 'schedule-item';
-                    noClassItem.textContent = 'Tidak ada pelajaran hari ini';
+                    noClassItem.textContent = 'Tidak ada pelajaran';
                     dayElement.appendChild(noClassItem);
                 }
-                
+
                 scheduleContainer.appendChild(dayElement);
             });
-            
-            // Tambahkan tombol kembali ke jadwal hari ini
+
+            const backBtnGroup = document.createElement('div');
+            backBtnGroup.className = 'btn-group';
+            scheduleContainer.appendChild(backBtnGroup);
+
             const backBtn = document.createElement('button');
             backBtn.className = 'btn btn-secondary';
             backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Jadwal Hari Ini';
             backBtn.addEventListener('click', renderTodaySchedule);
-            scheduleContainer.appendChild(backBtn);
+
+            backBtnGroup.appendChild(backBtn);
         }
 
         function createScheduleItem(item) {
             const scheduleItem = document.createElement('div');
             scheduleItem.className = 'schedule-item';
-            
+
             const subjectElement = document.createElement('div');
             subjectElement.className = 'subject';
             subjectElement.textContent = item.subject;
-            
+
             const detailsElement = document.createElement('div');
             detailsElement.className = 'details';
-            
+
             const teacherSpan = document.createElement('span');
             teacherSpan.textContent = item.teacher || (item.isBreak ? 'Istirahat' : '-');
-            
+
             const timeSpan = document.createElement('span');
             timeSpan.className = 'time';
             timeSpan.textContent = `${item.time} - ${calculateEndTime(item.time, item.duration)}`;
-            
+
             detailsElement.appendChild(teacherSpan);
             detailsElement.appendChild(timeSpan);
-            
+
             scheduleItem.appendChild(subjectElement);
             scheduleItem.appendChild(detailsElement);
-            
+
             return scheduleItem;
         }
 
@@ -1714,129 +1640,133 @@
             const totalMinutes = hours * 60 + minutes + duration;
             const endHours = Math.floor(totalMinutes / 60);
             const endMinutes = totalMinutes % 60;
-            return `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+            const formattedEndHours = (endHours % 24).toString().padStart(2, '0');
+            return `${formattedEndHours}:${endMinutes.toString().padStart(2, '0')}`;
         }
 
         function initCalendar() {
+            const calendarPanel = document.getElementById('calendar-panel');
+            if (!calendarPanel) return;
+
             const calendarPrev = document.getElementById('calendar-prev');
             const calendarNext = document.getElementById('calendar-next');
             const calendarToday = document.getElementById('calendar-today');
-            
+
+            if (!calendarPrev || !calendarNext || !calendarToday) return;
+
             let currentDate = new Date();
-            
+
             calendarPrev.addEventListener('click', () => {
                 currentDate.setMonth(currentDate.getMonth() - 1);
                 renderCalendar(currentDate);
             });
-            
+
             calendarNext.addEventListener('click', () => {
                 currentDate.setMonth(currentDate.getMonth() + 1);
                 renderCalendar(currentDate);
             });
-            
+
             calendarToday.addEventListener('click', () => {
                 currentDate = new Date();
                 renderCalendar(currentDate);
             });
-            
-            // Render calendar for current month
-            renderCalendar(currentDate);
         }
 
         function renderCalendar(date) {
             const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            
-            // Set month and year title
-            document.getElementById('calendar-month-year').textContent = 
+
+             const calendarMonthYearEl = document.getElementById('calendar-month-year');
+             const calendarDaysEl = document.getElementById('calendar-days');
+             const calendarEventsListEl = document.getElementById('calendar-events-list');
+
+             if (!calendarMonthYearEl || !calendarDaysEl || !calendarEventsListEl) return;
+
+            calendarMonthYearEl.textContent =
                 `${monthsIndo[date.getMonth()]} ${date.getFullYear()}`;
-            
-            // Get first day of month and total days in month
+
             const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
             const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-            
-            // Get days from previous month
             const prevMonthDays = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-            
-            // Get today's date for comparison
+
             const today = new Date();
             const isCurrentMonth = date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
-            
-            // Clear calendar
-            const calendarDays = document.getElementById('calendar-days');
-            calendarDays.innerHTML = '';
-            
-            // Add days from previous month
-            for (let i = firstDay - 1; i >= 0; i--) {
+
+            calendarDaysEl.innerHTML = '';
+
+            const startDayIndex = firstDay;
+
+            for (let i = startDayIndex - 1; i >= 0; i--) {
                 const dayElement = document.createElement('div');
                 dayElement.className = 'calendar-day other-month';
                 dayElement.innerHTML = `<div class="calendar-day-number">${prevMonthDays - i}</div>`;
-                calendarDays.appendChild(dayElement);
+                calendarDaysEl.appendChild(dayElement);
             }
-            
-            // Add days from current month
+
             for (let i = 1; i <= daysInMonth; i++) {
                 const dayDate = new Date(date.getFullYear(), date.getMonth(), i);
                 const dateStr = formatDate(dayDate);
                 const isHoliday = nationalHolidays[dateStr];
                 const isToday = isCurrentMonth && i === today.getDate();
-                
+
                 const dayElement = document.createElement('div');
                 dayElement.className = 'calendar-day';
-                
+
                 if (isToday) {
                     dayElement.classList.add('today');
                 }
-                
+
                 if (isHoliday) {
                     dayElement.classList.add('holiday');
                 }
-                
+
                 dayElement.innerHTML = `
                     <div class="calendar-day-number">${i}</div>
                     ${isHoliday ? '<div class="calendar-day-event"></div>' : ''}
                 `;
-                
-                // Add click event to show holiday info
+
                 if (isHoliday) {
                     dayElement.addEventListener('click', () => {
                         showHolidayInfo(isHoliday.title, isHoliday.description, dateStr);
                     });
                 }
-                
-                calendarDays.appendChild(dayElement);
+
+                calendarDaysEl.appendChild(dayElement);
             }
-            
-            // Add days from next month to fill the grid
-            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
-            const nextMonthDays = totalCells - (firstDay + daysInMonth);
-            
+
+            const totalCells = Math.ceil((startDayIndex + daysInMonth) / 7) * 7;
+            const nextMonthDays = totalCells - (startDayIndex + daysInMonth);
+
             for (let i = 1; i <= nextMonthDays; i++) {
                 const dayElement = document.createElement('div');
                 dayElement.className = 'calendar-day other-month';
                 dayElement.innerHTML = `<div class="calendar-day-number">${i}</div>`;
-                calendarDays.appendChild(dayElement);
+                calendarDaysEl.appendChild(dayElement);
             }
-            
-            // Render holidays and events for this month
+
             renderCalendarEvents(date);
         }
 
         function renderCalendarEvents(date) {
             const eventsList = document.getElementById('calendar-events-list');
+            if (!eventsList) return;
+
             eventsList.innerHTML = '';
-            
-            // Get all holidays in this month
+
             const monthStr = (date.getMonth() + 1).toString().padStart(2, '0');
             const year = date.getFullYear();
-            
+
             let hasEvents = false;
-            
-            for (const [dateStr, holiday] of Object.entries(nationalHolidays)) {
-                if (dateStr.startsWith(`${year}-${monthStr}`)) {
-                    hasEvents = true;
+
+            const currentMonthHolidays = Object.entries(nationalHolidays)
+                .filter(([dateStr, holiday]) => dateStr.startsWith(`${year}-${monthStr}`))
+                .sort(([dateStrA, holidayA], [dateStrB, holidayB]) => new Date(dateStrA) - new Date(dateStrB));
+
+            if (currentMonthHolidays.length > 0) {
+                 hasEvents = true;
+                 currentMonthHolidays.forEach(([dateStr, holiday]) => {
                     const eventDate = new Date(dateStr);
                     const dayName = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][eventDate.getDay()];
-                    
+
                     const eventItem = document.createElement('div');
                     eventItem.className = 'calendar-event-item holiday-event';
                     eventItem.innerHTML = `
@@ -1846,11 +1776,11 @@
                             <div class="calendar-event-description">${dayName}, ${holiday.description}</div>
                         </div>
                     `;
-                    
+
                     eventsList.appendChild(eventItem);
-                }
+                 });
             }
-            
+
             if (!hasEvents) {
                 const noEvents = document.createElement('div');
                 noEvents.className = 'calendar-event-item';
@@ -1870,611 +1800,411 @@
             const date = new Date(dateStr);
             const dayName = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][date.getDay()];
             const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            
+
             alert(`${title}\n${dayName}, ${date.getDate()} ${monthsIndo[date.getMonth()]} ${date.getFullYear()}\n\n${description}`);
         }
 
-        function initCountdownTimers() {
-            updateCountdownTimers();
-            setInterval(updateCountdownTimers, 1000); // Update setiap detik
-        }
+        function initCalculator() {
+            const calculator = document.getElementById('calculator');
+            if (!calculator) return;
 
-        function updateCountdownTimers() {
-    const now = new Date();
-    const currentDay = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'][now.getDay()];
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-    const currentSeconds = now.getSeconds();
-    const currentTime = currentHours * 3600 + currentMinutes * 60 + currentSeconds;
-    
-    // Cari pelajaran berikutnya atau waktu istirahat berikutnya
-    let nextEvent = null;
-    let nextEventTime = null;
-    let isBreak = false;
-    
-    if (schedule[currentDay]) {
-        for (const event of schedule[currentDay]) {
-            const [eventHours, eventMinutes] = event.time.split(':').map(Number);
-            const eventTime = eventHours * 3600 + eventMinutes * 60;
-            
-            if (eventTime > currentTime) {
-                nextEvent = event;
-                nextEventTime = eventTime;
-                isBreak = event.isBreak || false;
-                break;
+            const display = calculator.querySelector('.calculator-display');
+            const buttons = calculator.querySelectorAll('.calculator-buttons button');
+            let currentInput = '0';
+            let operator = null;
+            let firstOperand = null;
+            let waitingForSecondOperand = false;
+
+            function updateDisplay() {
+                const maxDisplayLength = 15;
+                if (currentInput.length > maxDisplayLength) {
+                    display.textContent = parseFloat(currentInput).toPrecision(maxDisplayLength - 5);
+                } else {
+                     display.textContent = currentInput;
+                }
             }
+
+            function resetCalculator() {
+                currentInput = '0';
+                operator = null;
+                firstOperand = null;
+                waitingForSecondOperand = false;
+            }
+
+            function handleNumber(number) {
+                if (waitingForSecondOperand === true) {
+                    currentInput = number;
+                    waitingForSecondOperand = false;
+                } else {
+                    currentInput = currentInput === '0' ? number : currentInput + number;
+                }
+                updateDisplay();
+            }
+
+            function handleDecimal(dot) {
+                if (waitingForSecondOperand === true) {
+                    currentInput = '0.';
+                    waitingForSecondOperand = false;
+                    updateDisplay();
+                    return;
+                }
+                if (!currentInput.includes(dot)) {
+                    currentInput += dot;
+                }
+                updateDisplay();
+            }
+
+            function handleOperator(nextOperator) {
+                const inputValue = parseFloat(currentInput);
+
+                if (operator && waitingForSecondOperand) {
+                    operator = nextOperator;
+                    return;
+                }
+
+                if (firstOperand === null && !isNaN(inputValue)) {
+                    firstOperand = inputValue;
+                } else if (operator) {
+                     if (!waitingForSecondOperand) {
+                         const result = operate(operator, firstOperand, inputValue);
+                         currentInput = String(result);
+                         firstOperand = result;
+                     }
+                }
+
+                waitingForSecondOperand = true;
+                operator = nextOperator;
+                updateDisplay();
+            }
+
+            function operate(operator, firstOperand, secondOperand) {
+                if (operator === '+') return firstOperand + secondOperand;
+                if (operator === '-') return firstOperand - secondOperand;
+                if (operator === '*') return firstOperand * secondOperand;
+                if (operator === '/') {
+                    if (secondOperand === 0) {
+                        return 'Error: Division by Zero';
+                    }
+                    return firstOperand / secondOperand;
+                }
+                return secondOperand;
+            }
+
+            buttons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const { value } = e.target.dataset;
+
+                    if (currentInput.includes('Error')) {
+                         if (value === 'C') {
+                              resetCalculator();
+                              updateDisplay();
+                         }
+                         return;
+                    }
+
+                    if (value === 'C') {
+                        resetCalculator();
+                        updateDisplay();
+                        return;
+                    }
+
+                    if (value === 'del') {
+                         if (currentInput.length === 1 && currentInput === '0') return;
+                         currentInput = currentInput.slice(0, -1) || '0';
+                         if (waitingForSecondOperand && currentInput === '0') {
+                              waitingForSecondOperand = false;
+                         }
+                         updateDisplay();
+                         return;
+                    }
+
+                    if (value === '.') {
+                        handleDecimal(value);
+                        return;
+                    }
+
+                    if (['+', '-', '*', '/'].includes(value)) {
+                        handleOperator(value);
+                        return;
+                    }
+
+                    if (value === '=') {
+                         if (operator && !waitingForSecondOperand) {
+                              const result = operate(operator, firstOperand, parseFloat(currentInput));
+                              if (typeof result === 'string' && result.includes('Error')) {
+                                   currentInput = result;
+                                   operator = null;
+                                   firstOperand = null;
+                                   waitingForSecondOperand = false;
+                              } else {
+                                   currentInput = String(result);
+                                   operator = null;
+                                   firstOperand = null;
+                                   waitingForSecondOperand = false;
+                              }
+                              updateDisplay();
+                         }
+                        return;
+                    }
+
+                    if (/\d/.test(value)) {
+                        handleNumber(value);
+                    }
+                });
+            });
+
+             updateDisplay();
         }
-    }
-    
-    // Update countdown pelajaran/istirahat berikutnya
-    const nextClassCountdown = document.getElementById('next-class-countdown');
-    const nextClassName = document.getElementById('next-class-name');
-    
-    if (nextEvent) {
-        const timeDiff = nextEventTime - currentTime;
-        const hoursLeft = Math.floor(timeDiff / 3600);
-        const minutesLeft = Math.floor((timeDiff % 3600) / 60);
-        const secondsLeft = timeDiff % 60;
-        
-        nextClassCountdown.textContent = `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
-        
-        if (isBreak) {
-    nextClassName.innerHTML = `<i class="fas fa-coffee"></i> Istirahat (${nextEvent.time})`;
-    nextClassCountdown.style.color = "var(--warning-color)";
-} else {
-    nextClassName.innerHTML = `<i class="fas fa-book"></i> ${nextEvent.subject} (${nextEvent.time})`;
-    nextClassCountdown.style.color = "var(--primary-color)";
-}
-    } else {
-        nextClassCountdown.textContent = '00:00:00';
-        nextClassName.textContent = 'Tidak ada pelajaran/istirahat berikutnya';
-    }
-    
-    // Update countdown jam pulang (15:45)
-    const homeTimeCountdown = document.getElementById('home-time-countdown');
-    const homeTime = 15 * 3600 + 45 * 60; // 15:45 dalam detik
-    let timeToHome = homeTime - currentTime;
-    
-    if (timeToHome < 0) {
-        timeToHome += 24 * 3600; // Jika sudah lewat, hitung untuk besok
-    }
-    
-    const hoursToHome = Math.floor(timeToHome / 3600);
-    const minutesToHome = Math.floor((timeToHome % 3600) / 60);
-    const secondsToHome = timeToHome % 60;
-    
-    homeTimeCountdown.textContent = `${hoursToHome.toString().padStart(2, '0')}:${minutesToHome.toString().padStart(2, '0')}:${secondsToHome.toString().padStart(2, '0')}`;
-}
 
         function initAIAssistant() {
-            const chatMessages = document.getElementById('chat-messages');
-            const aiInput = document.getElementById('ai-input');
-            const aiSubmit = document.getElementById('ai-submit');
-            
-            aiSubmit.addEventListener('click', sendAIMessage);
-            aiInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendAIMessage();
-            });
-            
-            function sendAIMessage() {
-                const message = aiInput.value.trim();
-                if (!message) return;
-                
-                // Tambahkan pesan user
-                addMessage(message, 'user');
-                aiInput.value = '';
-                
-                // Tampilkan loading
-                const loadingMessage = document.createElement('div');
-                loadingMessage.className = 'message ai';
-                loadingMessage.innerHTML = '<div class="loader"></div>';
-                chatMessages.appendChild(loadingMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Simulasikan respon AI (dalam implementasi nyata, ini akan memanggil API AI)
-                setTimeout(() => {
-                    chatMessages.removeChild(loadingMessage);
-                    
-                    // Respon AI yang lebih cerdas
-                    let response = generateAIResponse(message);
-                    
-                    addMessage(response, 'ai');
-                }, 1500);
-            }
-            
-            function generateAIResponse(message) {
-                const low = message.toLowerCase();
-                
-                // Tanggapan untuk sapaan
-                if (low.includes("halo") || low.includes("hai") || low.includes("hei")) {
-                    return "Halo juga! Ada yang bisa saya bantu hari ini?";
-                }
-                
-                // Tanggapan untuk perkenalan
-                if (low.includes("siapa kamu") || low.includes("namamu")) {
-                    return "Saya adalah asisten virtual kamu di Student Dashboard. Saya bisa membantu dengan jadwal pelajaran, tugas, tabungan, dan perhitungan matematika.";
-                }
-                
-                // Tanggapan terkait jadwal
-                if (low.includes("jadwal") || low.includes("pelajaran") || low.includes("kelas")) {
-                    const daysIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    const today = new Date().getDay();
-                    const todayName = daysIndo[today];
-                    
-                    if (low.includes("hari ini")) {
-                        return `Hari ini adalah hari ${todayName}. Kamu bisa melihat jadwal lengkap di tab Jadwal.`;
-                    } else if (low.includes("besok")) {
-                        const tomorrow = (today + 1) % 7;
-                        const tomorrowName = daysIndo[tomorrow];
-                        return `Besok adalah hari ${tomorrowName}. Kamu bisa melihat jadwal lengkap di tab Jadwal.`;
-                    } else {
-                        return "Kamu bisa melihat jadwal pelajaran di tab Jadwal. Di sana kamu bisa melihat jadwal hari ini atau jadwal lengkap untuk seminggu.";
-                    }
-                }
-                
-                // Tanggapan terkait kalender
-                if (low.includes("kalender") || low.includes("libur") || low.includes("hari libur")) {
-                    return "Kamu bisa melihat kalender dengan hari libur nasional di tab Kalender. Di sana kamu bisa melihat hari libur bulan ini.";
-                }
-                
-                // Tanggapan terkait tugas
-                if (low.includes("tugas") || low.includes("pekerjaan rumah") || low.includes("pr")) {
-                    return "Kamu bisa menambahkan dan mengelola tugas kamu di tab Tugas. Tambahkan tugas baru dan centang ketika sudah selesai.";
-                }
-                
-                // Tanggapan terkait tabungan
-                if (low.includes("tabungan") || low.includes("uang") || low.includes("simpanan")) {
-                    return "Tabungan harian kamu bisa dicatat di tab Tabungan. Kamu bisa melihat total tabungan bulan ini dan riwayat penyimpanan.";
-                }
-                
-                // Tanggapan terkait matematika
-                if (low.includes("matematika") || low.includes("hitung") || low.includes("kalkulator")) {
-                    return "Kamu bisa menggunakan Kalkulator di tab Kalkulator untuk perhitungan matematika dasar atau tanyakan pertanyaan matematika di bagian Kalkulator AI.";
-                }
-                
-                // Tanggapan untuk pertanyaan waktu
-                if (low.includes("jam") || low.includes("waktu") || low.includes("sekarang")) {
-                    const now = new Date();
-                    const hours = now.getHours().toString().padStart(2, '0');
-                    const minutes = now.getMinutes().toString().padStart(2, '0');
-                    return `Sekarang jam ${hours}:${minutes}. Lihat di bagian atas dashboard untuk info waktu lengkap.`;
-                }
-                
-                // Tanggapan untuk pertanyaan tanggal
-                if (low.includes("tanggal") || low.includes("hari apa")) {
-                    const daysIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                    const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                    const now = new Date();
-                    const dayName = daysIndo[now.getDay()];
-                    const date = now.getDate();
-                    const monthName = monthsIndo[now.getMonth()];
-                    const year = now.getFullYear();
-                    return `Hari ini ${dayName}, ${date} ${monthName} ${year}.`;
-                }
-                
-                // Tanggapan untuk ucapan terima kasih
-                if (low.includes("terima kasih") || low.includes("thanks") || low.includes("makasih")) {
-                    return "Sama-sama! Senang bisa membantu. Ada lagi yang bisa saya bantu?";
-                }
-                
-                // Tanggapan default jika tidak ada yang cocok
-                return "Maaf, saya belum memahami pertanyaan kamu. Coba tanyakan tentang:\n- Jadwal pelajaran\n- Kalender & hari libur\n- Daftar tugas\n- Tabungan harian\n- Kalkulator\nAtau coba gunakan kata kunci yang lebih spesifik.";
-            }
-            
-            function addMessage(text, sender) {
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                
-                const messageElement = document.createElement('div');
-                messageElement.className = `message ${sender}`;
-                
-                // Format teks dengan line breaks
-                const formattedText = text.replace(/\n/g, '<br>');
-                
-                messageElement.innerHTML = `
-                    ${formattedText}
-                    <div class="message-time">${hours}:${minutes}</div>
-                `;
-                
-                chatMessages.appendChild(messageElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        }
+            const aiChatbox = document.getElementById('ai-chatbox');
+            if (!aiChatbox) return;
 
-        function initSavings() {
-            const savingsInput = document.getElementById('savings-input');
-            const savingsSubmit = document.getElementById('savings-submit');
-            const savingsTotal = document.getElementById('savings-total');
-            const savingsHistoryList = document.getElementById('savings-history-list');
-            
-            // Load data dari localStorage
-            let savingsData = JSON.parse(localStorage.getItem('savingsData')) || {
-                total: 0,
-                history: []
+            const chatMessages = aiChatbox.querySelector('.chat-messages');
+            const userInput = aiChatbox.querySelector('#user-input');
+            const sendBtn = aiChatbox.querySelector('#send-btn');
+
+            // Improved AI responses with predefined answers for common questions
+            const predefinedResponses = {
+                "jadwal": {
+                    "senin": "Senin: Upacara (06:30-07:25), PAI (07:25-08:25), IPAS (08:25-08:55), Istirahat (08:55-09:25), IPAS (09:25-10:55), Bahasa Inggris (10:55-12:20), Istirahat (12:20-13:05), Bahasa Inggris (13:05-14:25), Bahasa Indonesia (14:25-15:45)",
+                    "selasa": "Selasa: IPAS (06:30-08:10), BP (08:10-08:55), Istirahat (08:55-09:25), OR (09:25-11:40), Matematika (11:40-12:20), Istirahat (12:20-13:05), DD E1-3 X (13:05-15:45)",
+                    "rabu": "Rabu: DD E4-7 X (06:30-08:55), Istirahat (08:55-09:25), DD E4-7 X (09:25-10:10), Matematika (10:10-12:20), Istirahat (12:20-13:05), SBY (13:05-14:25), Bahasa Indonesia (14:25-15:45)",
+                    "kamis": "Kamis: BP (06:30-07:25), Bahasa Sunda (07:25-08:10), PAI (08:10-08:55), Istirahat (08:55-09:25), Informatika (09:25-10:55), PPKN (10:55-12:20), Istirahat (12:20-13:05), Sejarah (13:05-14:25), Coding XI (14:25-15:45)",
+                    "jumat": "Jumat: DD E4-7 X (06:30-08:55), Istirahat (08:55-09:25), DD E4-7 X (09:25-10:10), IPAS (10:10-11:45)"
+                },
+                "pelajaran": {
+                    "pai": "PAI (Pendidikan Agama Islam) diajar oleh Pak Romdon pada hari Senin (07:25-08:25) dan Kamis (08:10-08:55).",
+                    "ipas": "IPAS (Ilmu Pengetahuan Alam dan Sosial) diajar oleh Bu Inem pada hari Senin (08:25-08:55, 09:25-10:55), Selasa (06:30-08:10), dan Jumat (10:10-11:45).",
+                    "bahasa inggris": "Bahasa Inggris diajar oleh Pak Alvan pada hari Senin (10:55-12:20, 13:05-14:25).",
+                    "matematika": "Matematika diajar oleh Bu Rica pada hari Selasa (11:40-12:20) dan Rabu (10:10-12:20)."
+                },
+                "guru": {
+                    "romdon": "Pak Romdon mengajar PAI pada hari Senin dan Kamis.",
+                    "inem": "Bu Inem mengajar IPAS pada hari Senin, Selasa, dan Jumat.",
+                    "alvan": "Pak Alvan mengajar Bahasa Inggris pada hari Senin.",
+                    "rica": "Bu Rica mengajar Matematika pada hari Selasa dan Rabu."
+                },
+                "libur": "Anda bisa melihat hari libur di tab Kalender. Beberapa hari libur utama termasuk Tahun Baru, Idul Fitri, Hari Kemerdekaan, dan Hari Natal."
             };
-            
-            // Update tampilan
-            updateSavingsDisplay();
-            
-            savingsSubmit.addEventListener('click', addSavings);
-            savingsInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') addSavings();
-            });
-            
-            function addSavings() {
-                const amount = parseInt(savingsInput.value);
-                if (isNaN(amount) || amount <= 0) {
-                    alert('Masukkan jumlah yang valid');
-                    return;
+
+            function getPredefinedResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Check for schedule questions
+                if (lowerMessage.includes('jadwal') || lowerMessage.includes('pelajaran')) {
+                    if (lowerMessage.includes('senin')) return predefinedResponses.jadwal.senin;
+                    if (lowerMessage.includes('selasa')) return predefinedResponses.jadwal.selasa;
+                    if (lowerMessage.includes('rabu')) return predefinedResponses.jadwal.rabu;
+                    if (lowerMessage.includes('kamis')) return predefinedResponses.jadwal.kamis;
+                    if (lowerMessage.includes('jumat')) return predefinedResponses.jadwal.jumat;
+                    return "Anda bisa melihat jadwal lengkap di tab Jadwal Pelajaran. Atau tanyakan jadwal hari tertentu (contoh: 'jadwal senin').";
                 }
                 
-                const now = new Date();
-                const dateStr = now.toLocaleDateString('id-ID', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
+                // Check for subject questions
+                if (lowerMessage.includes('pai')) return predefinedResponses.pelajaran.pai;
+                if (lowerMessage.includes('ipas')) return predefinedResponses.pelajaran.ipas;
+                if (lowerMessage.includes('bahasa inggris') || lowerMessage.includes('inggris')) return predefinedResponses.pelajaran["bahasa inggris"];
+                if (lowerMessage.includes('matematika') || lowerMessage.includes('mtk')) return predefinedResponses.pelajaran.matematika;
                 
-                // Tambahkan ke data
-                savingsData.total += amount;
-                savingsData.history.unshift({
-                    date: dateStr,
-                    amount: amount
-                });
+                // Check for teacher questions
+                if (lowerMessage.includes('romdon')) return predefinedResponses.guru.romdon;
+                if (lowerMessage.includes('inem')) return predefinedResponses.guru.inem;
+                if (lowerMessage.includes('alvan')) return predefinedResponses.guru.alvan;
+                if (lowerMessage.includes('rica')) return predefinedResponses.guru.rica;
                 
-                // Simpan ke localStorage
-                localStorage.setItem('savingsData', JSON.stringify(savingsData));
+                // Check for holiday questions
+                if (lowerMessage.includes('libur') || lowerMessage.includes('hari libur')) return predefinedResponses.libur;
                 
-                // Update tampilan
-                updateSavingsDisplay();
-                
-                // Reset input
-                savingsInput.value = '';
-                
-                // Animasi
-                savingsTotal.classList.add('pulse');
-                setTimeout(() => {
-                    savingsTotal.classList.remove('pulse');
-                }, 1000);
+                // Default response
+                return "Maaf, saya tidak mengerti pertanyaan Anda. Anda bisa bertanya tentang jadwal pelajaran, guru, atau hari libur. Contoh: 'Jadwal hari Senin' atau 'Siapa guru PAI?'";
             }
-            
-            function updateSavingsDisplay() {
-                // Update total
-                savingsTotal.textContent = `Rp ${savingsData.total.toLocaleString('id-ID')}`;
-                
-                // Update history
-                savingsHistoryList.innerHTML = '';
-                
-                if (savingsData.history.length === 0) {
-                    const emptyItem = document.createElement('div');
-                    emptyItem.className = 'savings-item';
-                    emptyItem.innerHTML = `
-                        <div class="savings-date">Belum ada riwayat</div>
-                        <div class="savings-value">Rp 0</div>
-                    `;
-                    savingsHistoryList.appendChild(emptyItem);
+
+            function appendMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', type);
+                const p = document.createElement('p');
+
+                if (type === 'ai-message' && text.includes('<i class="fas fa-spinner fa-spin"></i>')) {
+                    p.innerHTML = text;
                 } else {
-                    savingsData.history.forEach(item => {
-                        const historyItem = document.createElement('div');
-                        historyItem.className = 'savings-item';
-                        historyItem.innerHTML = `
-                            <div class="savings-date">${item.date}</div>
-                            <div class="savings-value">+ Rp ${item.amount.toLocaleString('id-ID')}</div>
-                        `;
-                        savingsHistoryList.appendChild(historyItem);
-                    });
+                    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    formattedText = formattedText.replace(/^- (.*)$/gm, '<li>$1</li>');
+                    formattedText = formattedText.replace(/`/g, '<code>');
+
+                    if (formattedText.includes('<li>')) {
+                        formattedText = '<ul>' + formattedText + '</ul>';
+                    }
+
+                    p.innerHTML = formattedText;
                 }
+
+                messageDiv.appendChild(p);
+                chatMessages.appendChild(messageDiv);
+                scrollToBottom();
+                return messageDiv;
             }
+
+            function scrollToBottom() {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (!message) return;
+
+                appendMessage(message, 'user-message');
+                userInput.value = '';
+                userInput.disabled = true;
+                sendBtn.disabled = true;
+
+                const typingIndicator = appendMessage('<i class="fas fa-spinner fa-spin"></i> Mengetik...', 'ai-message typing');
+
+                // Simulate AI thinking time
+                setTimeout(() => {
+                    typingIndicator.remove();
+                    
+                    // First check for predefined responses
+                    const predefinedResponse = getPredefinedResponse(message);
+                    
+                    if (predefinedResponse) {
+                        appendMessage(predefinedResponse, 'ai-message');
+                    } else {
+                        // If no predefined response, show default message
+                        appendMessage("Maaf, saya tidak mengerti pertanyaan Anda. Anda bisa bertanya tentang jadwal pelajaran, guru, atau hari libur.", 'ai-message');
+                    }
+                    
+                    userInput.disabled = false;
+                    sendBtn.disabled = false;
+                    userInput.focus();
+                    scrollToBottom();
+                }, 1500); // Simulate 1.5 second response time
+            }
+
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+             scrollToBottom();
         }
 
-        function initTasks() {
-            const taskInput = document.getElementById('task-input');
-            const taskSubmit = document.getElementById('task-submit');
-            const tasksList = document.getElementById('tasks-list');
-            
-            // Load data dari localStorage
-            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-            
-            // Update tampilan
-            renderTasks();
-            
-            taskSubmit.addEventListener('click', addTask);
-            taskInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') addTask();
-            });
-            
-            function addTask() {
-                const text = taskInput.value.trim();
-                if (!text) return;
-                
-                // Tambahkan task baru
-                tasks.unshift({
-                    id: Date.now(),
-                    text: text,
-                    completed: false
-                });
-                
-                // Simpan ke localStorage
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-                
-                // Update tampilan
-                renderTasks();
-                
-                // Reset input
-                taskInput.value = '';
-            }
-            
-            function renderTasks() {
-                tasksList.innerHTML = '';
-                
-                if (tasks.length === 0) {
-                    const emptyItem = document.createElement('div');
-                    emptyItem.className = 'task-item';
-                    emptyItem.innerHTML = `
-                        <div class="task-content">
-                            <div class="task-text">Belum ada tugas</div>
-                        </div>
-                    `;
-                    tasksList.appendChild(emptyItem);
-                } else {
-                    tasks.forEach(task => {
-                        const taskItem = document.createElement('div');
-                        taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
-                        taskItem.dataset.id = task.id;
-                        
-                        taskItem.innerHTML = `
-                            <div class="task-content">
-                                <div class="task-checkbox">${task.completed ? '<i class="fas fa-check"></i>' : ''}</div>
-                                <div class="task-text">${task.text}</div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-edit-btn"><i class="fas fa-edit"></i></button>
-                                <button class="task-delete-btn"><i class="fas fa-trash"></i></button>
-                            </div>
-                        `;
-                        
-                        // Toggle complete
-                        const checkbox = taskItem.querySelector('.task-checkbox');
-                        checkbox.addEventListener('click', () => {
-                            task.completed = !task.completed;
-                            localStorage.setItem('tasks', JSON.stringify(tasks));
-                            renderTasks();
-                        });
-                        
-                        // Edit task
-                        const editBtn = taskItem.querySelector('.task-edit-btn');
-                        editBtn.addEventListener('click', () => {
-                            const newText = prompt('Edit tugas:', task.text);
-                            if (newText !== null && newText.trim() !== '') {
-                                task.text = newText.trim();
-                                localStorage.setItem('tasks', JSON.stringify(tasks));
-                                renderTasks();
-                            }
-                        });
-                        
-                        // Delete task
-                        const deleteBtn = taskItem.querySelector('.task-delete-btn');
-                        deleteBtn.addEventListener('click', () => {
-                            if (confirm('Hapus tugas ini?')) {
-                                tasks = tasks.filter(t => t.id !== task.id);
-                                localStorage.setItem('tasks', JSON.stringify(tasks));
-                                renderTasks();
-                            }
-                        });
-                        
-                        tasksList.appendChild(taskItem);
-                    });
-                }
-            }
-        }
+const apiKey = "AIzaSyC3u966nk1TE9J68y4aDEj5qCzny8AAR8c";
 
-        function initCalculator() {
-            const calculatorDisplay = document.getElementById('calculator-display');
-            const calculatorButtons = document.querySelectorAll('.calculator-button');
-            const calculatorAIInput = document.getElementById('calculator-ai-input');
-            const calculatorAISubmit = document.getElementById('calculator-ai-submit');
-            const calculatorAIResult = document.getElementById('calculator-ai-result');
-            
-            let currentInput = '0';
-            let previousInput = '';
-            let operation = null;
-            let resetInput = false;
-            
-            // Update display
-            function updateDisplay() {
-                calculatorDisplay.textContent = currentInput;
-            }
-            
-            // Handle button clicks
-            calculatorButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const action = button.getAttribute('data-action');
-                    const digit = button.getAttribute('data-digit');
-                    const buttonText = button.textContent;
-                    
-                    if (digit === '.') {
-                        inputDecimal();
-                    } else if (digit) {
-                        inputDigit(digit);
-                    } else if (action === 'operator') {
-                        handleOperator(buttonText);
-                    } else if (action) {
-                        handleAction(action);
-                    }
-                    
-                    updateDisplay();
-                });
-            });
-            
-            // Input digit
-            function inputDigit(digit) {
-                if (currentInput === '0' || resetInput) {
-                    currentInput = digit;
-                    resetInput = false;
-                } else {
-                    currentInput += digit;
-                }
-            }
-            
-            // Handle decimal point
-            function inputDecimal() {
-                if (resetInput) {
-                    currentInput = '0.';
-                    resetInput = false;
-                    return;
-                }
-                
-                if (!currentInput.includes('.')) {
-                    currentInput += '.';
-                }
-            }
-            
-            // Handle operators
-            function handleOperator(op) {
-                if (operation !== null) calculate();
-                previousInput = currentInput;
-                operation = op;
-                resetInput = true;
-            }
-            
-            // Handle actions
-            function handleAction(action) {
-                switch (action) {
-                    case 'clear':
-                        currentInput = '0';
-                        previousInput = '';
-                        operation = null;
-                        break;
-                    case 'delete':
-                        if (currentInput.length === 1) {
-                            currentInput = '0';
-                        } else {
-                            currentInput = currentInput.slice(0, -1);
-                        }
-                        break;
-                    case 'calculate':
-                        calculate();
-                        break;
-                }
-            }
-            
-            // Calculate
-            function calculate() {
-                let result;
-                const prev = parseFloat(previousInput);
-                const current = parseFloat(currentInput);
-                
-                if (isNaN(prev) || isNaN(current)) return;
-                
-                switch (operation) {
-                    case '+':
-                        result = prev + current;
-                        break;
-                    case '-':
-                        result = prev - current;
-                        break;
-                    case '*':
-                        result = prev * current;
-                        break;
-                    case '/':
-                        result = prev / current;
-                        break;
-                    case '%':
-                        result = prev % current;
-                        break;
-                    default:
-                        return;
-                }
-                
-                currentInput = result.toString();
-                operation = null;
-                resetInput = true;
-            }
-            
-            // Kalkulator AI
-            calculatorAISubmit.addEventListener('click', handleAICalculation);
-            calculatorAIInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') handleAICalculation();
-            });
-            
-            function handleAICalculation() {
-                const question = calculatorAIInput.value.trim();
-                if (!question) return;
-                
-                calculatorAIResult.innerHTML = '<div class="loader"></div> Menghitung...';
-                
-                // Simulasikan perhitungan AI (dalam implementasi nyata, ini akan memanggil API AI)
-                setTimeout(() => {
-                    let result = calculateMathExpression(question);
-                    calculatorAIResult.innerHTML = result;
-                }, 1500);
-            }
-            
-            function calculateMathExpression(question) {
-                // Coba evaluasi ekspresi matematika langsung
-                try {
-                    // Bersihkan input dan ganti kata dengan operator
-                    let cleanQuestion = question
-                        .replace(/[^0-9+\-*/.%^√π() ]/g, '')
-                        .replace(/kali/g, '*')
-                        .replace(/bagi/g, '/')
-                        .replace(/tambah/g, '+')
-                        .replace(/kurang/g, '-')
-                        .replace(/pangkat/g, '^')
-                        .replace(/akar/g, '√')
-                        .replace(/persen/g, '%')
-                        .replace(/\^/g, '**')
-                        .replace(/√(\d+)/g, 'Math.sqrt($1)')
-                        .replace(/π/g, 'Math.PI');
-                    
-                    // Evaluasi ekspresi matematika
-                    const answer = eval(cleanQuestion);
-                    
-                    if (isNaN(answer)) {
-                        throw new Error('Not a number');
-                    }
-                    
-                    return `Hasil dari ${question} adalah <strong>${answer}</strong>`;
-                } catch (e) {
-                    // Jika evaluasi gagal, coba deteksi pertanyaan spesifik
-                    const low = question.toLowerCase();
-                    
-                    // Deteksi pertanyaan akar kuadrat
-                    if (low.includes('akar') || low.includes('√')) {
-                        const number = question.match(/\d+/);
-                        if (number) {
-                            const root = Math.sqrt(parseInt(number[0]));
-                            return `Akar kuadrat dari ${number[0]} adalah <strong>${root.toFixed(2)}</strong>`;
-                        }
-                    }
-                    
-                    // Deteksi pertanyaan pangkat
-                    if (low.includes('pangkat') || low.includes('^')) {
-                        const numbers = question.match(/\d+/g);
-                        if (numbers && numbers.length >= 2) {
-                            const power = Math.pow(parseInt(numbers[0]), parseInt(numbers[1]));
-                            return `${numbers[0]} pangkat ${numbers[1]} adalah <strong>${power}</strong>`;
-                        }
-                    }
-                    
-                    // Deteksi pertanyaan persentase
-                    if (low.includes('persen') || low.includes('%')) {
-                        const numbers = question.match(/\d+/g);
-                        if (numbers && numbers.length >= 2) {
-                            const percent = (parseInt(numbers[0]) / 100) * parseInt(numbers[1]);
-                            return `${numbers[0]}% dari ${numbers[1]} adalah <strong>${percent.toFixed(2)}</strong>`;
-                        }
-                    }
-                    
-                    // Jika tidak ada yang cocok
-                    return "Maaf, saya tidak bisa menghitung itu. Pastikan pertanyaan matematika Anda jelas. Contoh: 'Berapa 5 + 7?' atau 'Hitung 20% dari 150'";
-                }
-            }
-            
-            // Inisialisasi display
-            updateDisplay();
+function initAIAssistant() {
+    const sendBtn = document.getElementById('send-btn');
+    const userInput = document.getElementById('user-input');
+    const chatMessages = document.querySelector('.chat-messages');
+    
+    if (!sendBtn || !userInput || !chatMessages) return;
+    
+    sendBtn.addEventListener('click', async () => {
+        const input = userInput.value.trim();
+        if (!input) return;
+        
+        appendMessage('user', input);
+        userInput.value = '';
+        appendTypingMessage();
+        
+        try {
+            let aiText = await fetchGeminiResponse(input);
+            removeTypingMessage();
+            aiText = shortenText(aiText); // pangkas jawaban
+            typeEffect('ai', aiText);
+        } catch (error) {
+            removeTypingMessage();
+            appendMessage('ai', 'Maaf, ada gangguan teknis.');
+            console.error(error);
         }
+    });
+    
+    userInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') sendBtn.click();
+    });
+}
+
+function appendMessage(sender, text) {
+    const message = document.createElement('div');
+    message.className = `message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
+    message.innerHTML = parseMarkdown(text);
+    document.querySelector('.chat-messages').appendChild(message);
+    document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+}
+
+function appendTypingMessage() {
+    const typing = document.createElement('div');
+    typing.className = 'message ai-message typing';
+    typing.id = 'typing-indicator';
+    typing.innerHTML = `<p><i>Sedang mengetik...</i></p>`;
+    document.querySelector('.chat-messages').appendChild(typing);
+    document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+}
+
+function removeTypingMessage() {
+    const typing = document.getElementById('typing-indicator');
+    if (typing) typing.remove();
+}
+
+function typeEffect(sender, text) {
+    const container = document.createElement('div');
+    container.className = `message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
+    const p = document.createElement('p');
+    container.appendChild(p);
+    document.querySelector('.chat-messages').appendChild(container);
+    
+    let index = 0;
+    const interval = setInterval(() => {
+        if (index < text.length) {
+            p.innerHTML = parseMarkdown(text.slice(0, index + 1));
+            document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+            index++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 15); // kecepatan ketikan
+}
+
+async function fetchGeminiResponse(userPrompt) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            contents: [{
+                parts: [{ text: userPrompt }]
+            }]
+        })
+    });
+    
+    const result = await response.json();
+    if (result?.candidates?.length > 0) {
+        return result.candidates[0].content.parts[0].text;
+    } else {
+        throw new Error("AI tidak membalas.");
+    }
+}
+
+function parseMarkdown(text) {
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code>$1</code>')
+        .replace(/\n/g, "<br>");
+}
+
+function shortenText(text) {
+    const maxWords = 40;
+    const words = text.trim().split(/\s+/);
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + "...";
+}
+        
     </script>
 </body>
 </html>
