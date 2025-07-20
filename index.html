@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,7 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <div class="sidebar" id="sidebar">
@@ -44,136 +46,136 @@
             </a>
         </div>
     </div>
-    <div class="overlay" id="overlay"></div><header>
-    <div class="header-title">
-        <h1>Student Smart</h1>
-    </div>
-    <div class="header-time">
-        <p id="current-date">Loading...</p>
-        <span id="real-clock">--:--</span>
-    </div>
-    <button class="menu-toggle" id="menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
-</header>
-
-<main>
-    <div class="countdown-ticker">
-        <div class="ticker-container" id="ticker-container"></div>
-    </div>
-
-    <div class="card" id="schedule-panel">
-        <h2><i class="fas fa-calendar-alt"></i> Jadwal Pelajaran</h2>
-        <div class="schedule-container" id="schedule-container">
-            <div class="schedule-day">
-                <h3><i class="fas fa-spinner fa-spin"></i> Memuat jadwal...</h3>
-            </div>
+    <div class="overlay" id="overlay"></div>
+    <header>
+        <div class="header-title">
+            <h1>Student Smart</h1>
         </div>
-        <div class="day-buttons-footer">
-            <div class="day-buttons-container">
-                <button class="day-btn active" data-day="senin">Senin</button>
-                <button class="day-btn" data-day="selasa">Selasa</button>
-                <button class="day-btn" data-day="rabu">Rabu</button>
-                <button class="day-btn" data-day="kamis">Kamis</button>
-                <button class="day-btn" data-day="jumat">Jumat</button>
-            </div>
+        <div class="header-time">
+            <p id="current-date">Loading...</p>
+            <span id="real-clock">--:--</span>
         </div>
-    </div>
+        <button class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
 
-    <div class="card" id="attendance-panel" style="display: none;">
-        <h2><i class="fas fa-clipboard-check"></i> Absensi</h2>
-        <div class="attendance-container">
-            <div class="btn-group">
-                <button class="btn" id="mark-present-btn"><i class="fas fa-check"></i> Tandai Hadir</button>
-                <button class="btn" id="mark-absent-btn"><i class="fas fa-times"></i> Tandai Absen</button>
-                <button class="btn btn-secondary" id="clear-attendance-btn"><i class="fas fa-trash"></i> Hapus Data</button>
-            </div>
-            <div class="attendance-list" id="attendance-list"></div>
+    <main>
+        <div class="countdown-ticker">
+            <div class="ticker-container" id="ticker-container"></div>
         </div>
-    </div>
 
-    <div class="card" id="calculator-panel" style="display: none;">
-        <h2><i class="fas fa-calculator"></i> Kalkulator</h2>
-        <div class="calculator-container">
-            <div id="calculator">
-                <div class="calculator-display" id="calculator-display">0</div>
-                <div class="calculator-buttons">
-                    <button class="btn btn-secondary" data-value="C">C</button>
-                    <button class="btn btn-secondary" data-value="del"><i class="fas fa-backspace"></i></button>
-                    <button class="btn btn-secondary" data-value="/">/</button>
-                    <button class="btn" data-value="*">*</button>
-                    <button class="btn" data-value="+">+</button>
-
-                    <button class="btn btn-secondary" data-value="7">7</button>
-                    <button class="btn btn-secondary" data-value="8">8</button>
-                    <button class="btn btn-secondary" data-value="9">9</button>
-                    <button class="btn" data-value="-">-</button>
-
-                    <button class="btn btn-secondary" data-value="4">4</button>
-                    <button class="btn btn-secondary" data-value="5">5</button>
-                    <button class="btn btn-secondary" data-value="6">6</button>
-                    <button class="btn" data-value="1">1</button>
-
-                    <button class="btn btn-secondary" data-value="1">1</button>
-                    <button class="btn btn-secondary" data-value="2">2</button>
-                    <button class="btn btn-secondary" data-value="3">3</button>
-                    <button class="btn" data-value=".">.</button>
-
-                    <button class="btn btn-secondary wide" data-value="0">0</button>
-                    <button class="btn" data-value="=">=</button>
+        <div class="card" id="schedule-panel">
+            <h2><i class="fas fa-calendar-alt"></i> Jadwal Pelajaran</h2>
+            <div class="schedule-container" id="schedule-container">
+                <div class="schedule-day">
+                    <h3><i class="fas fa-spinner fa-spin"></i> Memuat jadwal...</h3>
+                </div>
+            </div>
+            <div class="day-buttons-footer">
+                <div class="day-buttons-container">
+                    <button class="day-btn active" data-day="senin">Senin</button>
+                    <button class="day-btn" data-day="selasa">Selasa</button>
+                    <button class="day-btn" data-day="rabu">Rabu</button>
+                    <button class="day-btn" data-day="kamis">Kamis</button>
+                    <button class="day-btn" data-day="jumat">Jumat</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card" id="converter-panel" style="display: none;">
-        <h2><i class="fas fa-exchange-alt"></i> Konversi Bilangan</h2>
-        <div class="converter-container">
-            <div class="converter-row">
-                <span class="converter-label">Biner</span>
-                <input type="text" class="converter-input" id="binary-input" placeholder="Masukkan bilangan biner">
-            </div>
-            <div class="converter-row">
-                <span class="converter-label">Desimal</span>
-                <input type="text" class="converter-input" id="decimal-input" placeholder="Masukkan bilangan desimal">
-            </div>
-            <div class="converter-row">
-                <span class="converter-label">Heksadesimal</span>
-                <input type="text" class="converter-input" id="hex-input" placeholder="Masukkan bilangan heksa">
-            </div>
-            <div class="converter-row">
-                <span class="converter-label">Oktal</span>
-                <input type="text" class="converter-input" id="octal-input" placeholder="Masukkan bilangan oktal">
+        <div class="card" id="attendance-panel" style="display: none;">
+            <h2><i class="fas fa-clipboard-check"></i> Absensi</h2>
+            <div class="attendance-container">
+                <div class="btn-group">
+                    <button class="btn" id="mark-present-btn"><i class="fas fa-check"></i> Tandai Hadir</button>
+                    <button class="btn" id="mark-absent-btn"><i class="fas fa-times"></i> Tandai Absen</button>
+                    <button class="btn btn-secondary" id="clear-attendance-btn"><i class="fas fa-trash"></i> Hapus Data</button>
+                </div>
+                <div class="attendance-list" id="attendance-list"></div>
             </div>
         </div>
-    </div>
 
-    <div class="card" id="calendar-panel" style="display: none;">
-        <h2><i class="fas fa-calendar"></i> Kalender</h2>
-        <div id="calendar-container"></div>
-    </div>
+        <div class="card" id="calculator-panel" style="display: none;">
+            <h2><i class="fas fa-calculator"></i> Kalkulator</h2>
+            <div class="calculator-container">
+                <div id="calculator">
+                    <div class="calculator-display" id="calculator-display">0</div>
+                    <div class="calculator-buttons">
+                        <button class="btn btn-secondary" data-value="C">C</button>
+                        <button class="btn btn-secondary" data-value="del"><i class="fas fa-backspace"></i></button>
+                        <button class="btn btn-secondary" data-value="/">/</button>
+                        <button class="btn" data-value="*">*</button>
+                        <button class="btn" data-value="+">+</button>
 
-    <div class="card" id="todo-panel" style="display: none;">
-        <h2><i class="fas fa-tasks"></i> To-Do List</h2>
-        <div class="todo-container">
-            <div class="todo-input-group">
-                <input type="text" class="todo-input" id="todo-input" placeholder="Tambahkan tugas baru...">
-                <button class="btn" id="add-todo-btn"><i class="fas fa-plus"></i> Tambah</button>
+                        <button class="btn btn-secondary" data-value="7">7</button>
+                        <button class="btn btn-secondary" data-value="8">8</button>
+                        <button class="btn btn-secondary" data-value="9">9</button>
+                        <button class="btn" data-value="-">-</button>
+
+                        <button class="btn btn-secondary" data-value="4">4</button>
+                        <button class="btn btn-secondary" data-value="5">5</button>
+                        <button class="btn btn-secondary" data-value="6">6</button>
+                        <button class="btn" data-value="1">1</button>
+
+                        <button class="btn btn-secondary" data-value="1">1</button>
+                        <button class="btn btn-secondary" data-value="2">2</button>
+                        <button class="btn btn-secondary" data-value="3">3</button>
+                        <button class="btn" data-value=".">.</button>
+
+                        <button class="btn btn-secondary wide" data-value="0">0</button>
+                        <button class="btn" data-value="=">=</button>
+                    </div>
+                </div>
             </div>
-            <div class="todo-list" id="todo-list"></div>
         </div>
-    </div>
-</main>
 
-<!-- Semua script di akhir agar DOM siap -->
-<script src="Js/jadwal.js"></script>
-<script src="Js/attendance.js"></script>
-<script src="Js/todo.js"></script>
-<script src="Js/calculator.js"></script>
-<script src="Js/converter.js"></script>
-<script src="Js/kalender.js"></script>
-<script src="Js/countdown.js"></script>
-<script src="Js/main.js"></script>
+        <div class="card" id="converter-panel" style="display: none;">
+            <h2><i class="fas fa-exchange-alt"></i> Konversi Bilangan</h2>
+            <div class="converter-container">
+                <div class="converter-row">
+                    <span class="converter-label">Biner</span>
+                    <input type="text" class="converter-input" id="binary-input" placeholder="Masukkan bilangan biner">
+                </div>
+                <div class="converter-row">
+                    <span class="converter-label">Desimal</span>
+                    <input type="text" class="converter-input" id="decimal-input" placeholder="Masukkan bilangan desimal">
+                </div>
+                <div class="converter-row">
+                    <span class="converter-label">Heksadesimal</span>
+                    <input type="text" class="converter-input" id="hex-input" placeholder="Masukkan bilangan heksa">
+                </div>
+                <div class="converter-row">
+                    <span class="converter-label">Oktal</span>
+                    <input type="text" class="converter-input" id="octal-input" placeholder="Masukkan bilangan oktal">
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="calendar-panel" style="display: none;">
+            <h2><i class="fas fa-calendar"></i> Kalender</h2>
+            <div id="calendar-container"></div>
+        </div>
+
+        <div class="card" id="todo-panel" style="display: none;">
+            <h2><i class="fas fa-tasks"></i> To-Do List</h2>
+            <div class="todo-container">
+                <div class="todo-input-group">
+                    <input type="text" class="todo-input" id="todo-input" placeholder="Tambahkan tugas baru...">
+                    <button class="btn" id="add-todo-btn"><i class="fas fa-plus"></i> Tambah</button>
+                </div>
+                <div class="todo-list" id="todo-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="jadwal.js"></script>
+    <script src="attendance.js"></script>
+    <script src="todo.js"></script>
+    <script src="calculator.js"></script>
+    <script src="converter.js"></script>
+    <script src="kalender.js"></script>
+    <script src="countdown.js"></script>
+    <script src="main.js"></script>
 
 </body>
 </html>
